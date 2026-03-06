@@ -1,9 +1,9 @@
 :root {
-    --bg-dark: #1c1917; /* Fond très sombre mais chaud */
-    --primary: #f97316; /* Orange vif */
-    --accent: #fb7185; /* Saumon / Rose */
-    --glass: rgba(40, 40, 40, 0.6);
-    --text: #fff;
+    --bg-dark: #090e17;
+    --primary: #00f2fe;
+    --accent: #4facfe;
+    --glass: rgba(15, 20, 30, 0.7);
+    --text: #f0f6fc;
     --font: 'Outfit', sans-serif;
 }
 
@@ -17,7 +17,6 @@ body {
     height: 100vh;
 }
 
-/* --- INTRO SCREEN --- */
 #intro-screen {
     position: fixed;
     inset: 0;
@@ -25,7 +24,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    background: radial-gradient(circle at center, #431407 0%, #0c0a09 100%);
+    background: radial-gradient(circle at center, #102a43 0%, #090e17 100%);
     transition: opacity 0.8s ease-in-out;
 }
 
@@ -42,6 +41,7 @@ h1 {
 }
 
 .glow-on-hover {
+    margin-top: 60px;
     padding: 15px 40px;
     border: 2px solid var(--primary);
     background: transparent;
@@ -50,16 +50,16 @@ h1 {
     cursor: pointer;
     border-radius: 50px;
     transition: 0.3s;
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.3);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
 }
 
 .glow-on-hover:hover {
     background: var(--primary);
-    box-shadow: 0 0 40px rgba(249, 115, 22, 0.8);
+    box-shadow: 0 0 40px rgba(0, 242, 254, 0.8);
     transform: scale(1.05);
+    color: #090e17;
 }
 
-/* --- MAIN INTERFACE & NAVIGATION --- */
 #main-interface { height: 100vh; display: flex; flex-direction: column; opacity: 0; animation: fadeIn 1s forwards; }
 
 @keyframes fadeIn { to { opacity: 1; } }
@@ -71,14 +71,13 @@ h1 {
     padding: 1.5rem 3rem;
     width: 100%;
     z-index: 100;
-    background: rgba(28, 25, 23, 0.9);
+    background: rgba(9, 14, 23, 0.9);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 .logo { font-weight: 700; font-size: 1.5rem; }
 .logo span { color: var(--primary); }
 
-/* --- MENU NAVIGATION ONGLET --- */
 .nav-menu {
     display: flex;
     gap: 20px;
@@ -104,13 +103,12 @@ h1 {
 }
 
 .nav-tab.active {
-    background: rgba(249, 115, 22, 0.15);
+    background: rgba(0, 242, 254, 0.15);
     color: var(--primary);
     border: 1px solid var(--primary);
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
 }
 
-/* --- ICONE GITHUB --- */
 .social-links {
     display: flex;
     align-items: center;
@@ -130,12 +128,10 @@ h1 {
     filter: drop-shadow(0 0 15px var(--primary)) drop-shadow(0 0 30px var(--accent));
 }
 
-/* --- VIEWS MANAGEMENT --- */
 .view { display: none; flex: 1; position: relative; }
 .view.active-view { display: flex; animation: fadeIn 0.5s ease; }
 .hidden { display: none !important; }
 
-/* --- CARROUSEL (MES PROJETS) --- */
 .carousel-wrapper {
     flex: 1;
     display: flex;
@@ -153,7 +149,7 @@ h1 {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
     border: 1px solid var(--primary);
     color: var(--primary);
     font-size: 1.5rem;
@@ -171,7 +167,7 @@ h1 {
 
 .nav-btn:hover {
     background: var(--primary);
-    color: white;
+    color: #090e17;
     box-shadow: 0 0 20px var(--primary);
     transform: translateY(-50%) scale(1.1);
 }
@@ -215,12 +211,11 @@ h1 {
     filter: blur(2px);
 }
 
-/* BASE DU VERRE DÉPOLI (Partagé) */
 .card-glass {
     height: 100%;
-    background: rgba(30, 30, 30, 0.7);
+    background: var(--glass);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(251, 113, 133, 0.3);
+    border: 1px solid rgba(79, 172, 254, 0.3);
     border-radius: 20px;
     padding: 2.5rem;
     display: flex;
@@ -244,6 +239,7 @@ h1 {
     border-radius: 20px;
     font-size: 0.9rem;
     font-weight: bold;
+    color: #090e17;
 }
 
 .card-body {
@@ -252,7 +248,6 @@ h1 {
     padding-right: 15px;
 }
 
-/* SCROLLBAR PERSONNALISÉE */
 .custom-scroll::-webkit-scrollbar { width: 8px; }
 .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
 .custom-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
@@ -295,9 +290,9 @@ h1 {
 .project-btn:hover, .project-btn.live {
     background: var(--primary);
     box-shadow: 0 0 15px var(--primary);
+    color: #090e17;
 }
 
-/* --- SECTION RÉFÉRENTIEL DES COMPÉTENCES --- */
 #skills-view {
     flex-direction: column;
     padding: 2rem 5%;
@@ -329,7 +324,7 @@ h1 {
 }
 
 .competency-card {
-    height: 450px; /* Hauteur fixe pour alignement avec scroll interne */
+    height: 450px;
     padding: 1.5rem;
 }
 
@@ -361,10 +356,10 @@ h1 {
 
 .level-group {
     margin-bottom: 1.5rem;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     padding: 15px;
     border-radius: 12px;
-    border-left: 3px solid var(--accent);
+    border-left: 3px solid var(--primary);
 }
 
 .level-group h4 {
