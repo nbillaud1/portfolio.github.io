@@ -23,149 +23,373 @@
     <main id="main-interface" class="hidden">
         <nav class="top-nav">
             <div class="logo">NB<span>.Dev</span></div>
+            
+            <div class="nav-menu">
+                <button class="nav-tab active" onclick="switchView('projects')"><i class="fas fa-layer-group"></i> Mes Projets</button>
+                <button class="nav-tab" onclick="switchView('skills')"><i class="fas fa-award"></i> Référentiel Compétences</button>
+            </div>
+
             <div class="social-links">
                 <a href="https://github.com/nbillaud1" target="_blank"><i class="fab fa-github"></i></a>
             </div>
         </nav>
 
-        <div class="carousel-wrapper">
-            <button class="nav-btn prev" id="btnPrev"><i class="fas fa-arrow-left"></i></button>
-            <button class="nav-btn next" id="btnNext"><i class="fas fa-arrow-right"></i></button>
-            
-            <div class="carousel-container">
+        <div id="projects-view" class="view active-view">
+            <div class="carousel-wrapper">
+                <button class="nav-btn prev" id="btnPrev"><i class="fas fa-arrow-left"></i></button>
+                <button class="nav-btn next" id="btnNext"><i class="fas fa-arrow-right"></i></button>
                 
-                <article class="card active">
-                    <div class="card-glass">
-                        <div class="card-header">
-                            <h2>Latice</h2>
-                            <span class="badge">Java / JavaFX</span>
-                        </div>
-                        <div class="card-body custom-scroll">
-                            <h3>Description</h3>
-                            <p>Mon équipe et moi-même avons développé le jeu de Latice (un mélange entre le Scrabble et les Dominos). L’objectif de ce projet était de faciliter la gestion des événements et des finances du BDE de la promo d’informatique de l’IUT de Limoges.</p>
-                            
-                            <h3>Rôle personnel</h3>
-                            <p>Chef de projet (répartition des rôles, aide aux autres membres). Implémenter l’interface utilisateur en JavaFX. Plateforme de développement collaborative : Github. J’ai aussi participé au développement du back-end en Java lier au front via Scene Builder.</p>
-                            
-                            <h3>Technos utilisées</h3>
-                            <p>Python, SQL, MySQL, VsCode, Github</p>
+                <div class="carousel-container">
+                    <article class="card active">
+                        <div class="card-glass">
+                            <div class="card-header">
+                                <h2>Latice</h2>
+                                <span class="badge">Java / JavaFX</span>
+                            </div>
+                            <div class="card-body custom-scroll">
+                                <h3>Description</h3>
+                                <p>Mon équipe et moi-même avons développé le jeu de Latice (un mélange entre le Scrabble et les Dominos). L’objectif de ce projet était de faciliter la gestion des événements et des finances du BDE de la promo d’informatique de l’IUT de Limoges.</p>
+                                
+                                <h3>Rôle personnel</h3>
+                                <p>Chef de projet (répartition des rôles, aide aux autres membres). Implémenter l’interface utilisateur en JavaFX. Plateforme de développement collaborative : Github. J’ai aussi participé au développement du back-end en Java lier au front via Scene Builder.</p>
+                                
+                                <h3>Technos utilisées</h3>
+                                <p>Python, SQL, MySQL, VsCode, Github</p>
 
-                            <h3>Compétence démontrée</h3>
-                            <ul>
-                                <li>Définir et mettre en œuvre une démarche de suivi de projet</li>
-                                <li>Vérifier et valider la qualité de l’application par les tests</li>
-                                <li>Concevoir, coder, tester, intégrer</li>
-                            </ul>
+                                <h3>Compétence démontrée</h3>
+                                <ul>
+                                    <li>Définir et mettre en œuvre une démarche de suivi de projet</li>
+                                    <li>Vérifier et valider la qualité de l’application par les tests</li>
+                                    <li>Concevoir, coder, tester, intégrer</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/nbillaud1/latice.git" target="_blank" class="project-btn">Lien GitHub</a>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <a href="https://github.com/nbillaud1/latice.git" target="_blank" class="project-btn">Lien GitHub</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-glass">
+                            <div class="card-header">
+                                <h2>Gestion Compte OEIL</h2>
+                                <span class="badge">Python / SQL</span>
+                            </div>
+                            <div class="card-body custom-scroll">
+                                <h3>Description</h3>
+                                <p>L’objectif de ce projet était de faciliter la gestion des événements et des finances du BDE de la promo d’informatique de l’IUT de Limoges (OEIL).</p>
+                                
+                                <h3>Rôle personnel</h3>
+                                <p>Création d’une base de données contenant tous les adhérents à l’association, les événements passés, SQL, MySQL. Gestion de finances pour faciliter mon travail lorsque j’étais trésorier de l’association en Python. Sur VsCode et Github.</p>
+
+                                <h3>Compétence démontrée</h3>
+                                <ul>
+                                    <li>Assurer la sécurité des données (intégrité, confidentialité)</li>
+                                    <li>Visualiser des données</li>
+                                    <li>Identifier les enjeux de l’économie de l’innovation numérique</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/nbillaud1/OEIL.git" target="_blank" class="project-btn">Lien GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-glass">
+                            <div class="card-header">
+                                <h2>ERP IUT</h2>
+                                <span class="badge">Vue.js / Spring Boot</span>
+                            </div>
+                            <div class="card-body custom-scroll">
+                                <h3>Description</h3>
+                                <p>Faciliter le remplissage, la gestion et la conservation des fiches ressources pour les professeurs, les membres de la direction, les intervenants, les autres départements. A terme, publier cette appli web et la rendre disponible pour tous les IUT de France.</p>
+                                
+                                <h3>Rôle personnel</h3>
+                                <p>Recueil des besoins auprès des membres concernés par le projet. Chef de projet (répartition des rôles, aide aux autres membres). Réflexion et cadrage de la maquette sur Figma. Développement front-end en Vue.js. Lien front/back avec Spring Boot (framework Java).</p>
+
+                                <h3>Compétence démontrée</h3>
+                                <ul>
+                                    <li>Appliquer des principes d’accessibilité et d’ergonomie</li>
+                                    <li>Organiser la restitution de données à travers la programmation et la visualisation</li>
+                                    <li>Formaliser les besoins du client et de l'utilisateur</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://164.81.120.79" target="_blank" class="project-btn live">Voir le site</a>
+                                <a href="https://github.com/nbillaud1/sae_erp.git" target="_blank" class="project-btn">Lien GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-glass">
+                            <div class="card-header">
+                                <h2>La Cosina</h2>
+                                <span class="badge">PHP / MySQL</span>
+                            </div>
+                            <div class="card-body custom-scroll">
+                                <h3>Description</h3>
+                                <p>Création d’un site internet qui permet la gestion de recettes de cuisine.</p>
+                                
+                                <h3>Rôle personnel</h3>
+                                <p>Création de l’interface en PHP. Conception et implémentation de la base de données MySQL.</p>
+
+                                <h3>Compétence démontrée</h3>
+                                <ul>
+                                    <li>Organiser la restitution de données à travers la programmation et la visualisation</li>
+                                    <li>Développer des interfaces utilisateurs</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/nbillaud1/lacosina" target="_blank" class="project-btn">Lien GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-glass">
+                            <div class="card-header">
+                                <h2>PyGame</h2>
+                                <span class="badge">Python</span>
+                            </div>
+                            <div class="card-body custom-scroll">
+                                <h3>Description</h3>
+                                <p>Création d’un menu de mini jeux jouables en mode Joueur vs Joueur, Joueur vs Ordi ou Ordi vs Ordi. Développer un jeu de Morpion, de Puissance 4, Devine le Nombre et jeu des Allumettes.</p>
+                                
+                                <h3>Rôle personnel</h3>
+                                <p>Chef de projet. Création du Menu de jeux. Création du Morpion et Puissance 4 en mode Joueur vs Joueur. Ajout des ordinateurs et de leurs différents niveaux. Technos utilisées : Python, VsCode, Github.</p>
+
+                                <h3>Compétence démontrée</h3>
+                                <ul>
+                                    <li>Analyser un problème avec méthode</li>
+                                    <li>Comparer des algorithmes pour des problèmes classiques (tris simples, recherche...)</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://github.com/nbillaud1/mini_games_python.git" target="_blank" class="project-btn">Lien GitHub</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <div id="skills-view" class="view hidden custom-scroll">
+            <div class="skills-container">
+                <h2 class="section-title">Référentiel Officiel des Compétences (BUT Informatique)</h2>
+                <div class="skills-grid">
+
+                    <div class="competency-card card-glass">
+                        <div class="comp-header">
+                            <h3><i class="fas fa-laptop-code"></i> Réaliser</h3>
+                            <p>Développer une solution informatique pour un client.</p>
+                        </div>
+                        <div class="comp-body custom-scroll">
+                            <div class="level-group">
+                                <h4>Niveau 1 : Développer des applications simples</h4>
+                                <ul>
+                                    <li>AC11.01 | Implémenter des conceptions simples</li>
+                                    <li>AC11.02 | Élaborer des conceptions simples</li>
+                                    <li>AC11.03 | Faire des essais et évaluer leurs résultats en regard des spécifications</li>
+                                    <li>AC11.04 | Développer des interfaces utilisateurs</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 2 : Partir des exigences jusqu'à une application complète</h4>
+                                <ul>
+                                    <li>AC21.01 | Élaborer et implémenter les spécifications fonctionnelles et non fonctionnelles</li>
+                                    <li>AC21.02 | Appliquer des principes d'accessibilité et d'ergonomie</li>
+                                    <li>AC21.03 | Adopter de bonnes pratiques de conception et de programmation</li>
+                                    <li>AC21.04 | Vérifier et valider la qualité de l'application par les tests</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 3 : Adapter des applications sur un ensemble de supports</h4>
+                                <ul>
+                                    <li>AC31.01 | Choisir et implémenter les architectures adaptées</li>
+                                    <li>AC31.02 | Faire évoluer une application existante</li>
+                                    <li>AC31.03 | Intégrer des solutions dans un environnement de production</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </article>
 
-                <article class="card">
-                    <div class="card-glass">
-                        <div class="card-header">
-                            <h2>Gestion Compte OEIL</h2>
-                            <span class="badge">Python / SQL</span>
+                    <div class="competency-card card-glass">
+                        <div class="comp-header">
+                            <h3><i class="fas fa-tachometer-alt"></i> Optimiser</h3>
+                            <p>Proposer des applications informatiques optimisées.</p>
                         </div>
-                        <div class="card-body custom-scroll">
-                            <h3>Description</h3>
-                            <p>L’objectif de ce projet était de faciliter la gestion des événements et des finances du BDE de la promo d’informatique de l’IUT de Limoges (OEIL).</p>
-                            
-                            <h3>Rôle personnel</h3>
-                            <p>Création d’une base de données contenant tous les adhérents à l’association, les événements passés, SQL, MySQL. Gestion de finances pour faciliter mon travail lorsque j’étais trésorier de l’association en Python. Sur VsCode et Github.</p>
-
-                            <h3>Compétence démontrée</h3>
-                            <ul>
-                                <li>Assurer la sécurité des données (intégrité, confidentialité)</li>
-                                <li>Visualiser des données</li>
-                                <li>Identifier les enjeux de l’économie de l’innovation numérique</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://github.com/nbillaud1/OEIL.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        <div class="comp-body custom-scroll">
+                            <div class="level-group">
+                                <h4>Niveau 1 : Appréhender et construire des algorithmes</h4>
+                                <ul>
+                                    <li>AC12.01 | Analyser un problème avec méthode</li>
+                                    <li>AC12.02 | Comparer des algorithmes pour des problèmes classiques</li>
+                                    <li>AC12.03 | Formaliser et mettre en œuvre des outils mathématiques pour l'informatique</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 2 : Sélectionner les algorithmes adéquats</h4>
+                                <ul>
+                                    <li>AC22.01 | Choisir des structures de données complexes adaptées au problème</li>
+                                    <li>AC22.02 | Utiliser des techniques algorithmiques adaptées pour des problèmes complexes</li>
+                                    <li>AC22.03 | Comprendre les enjeux et moyens de sécurisation des données et du code</li>
+                                    <li>AC22.04 | Évaluer l'impact environnemental et sociétal des solutions proposées</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 3 : Analyser et optimiser des applications</h4>
+                                <ul>
+                                    <li>AC32.01 | Anticiper les résultats de diverses métriques (temps d'exécution, mémoire...)</li>
+                                    <li>AC32.02 | Profiler, analyser et justifier le comportement d'un code existant</li>
+                                    <li>AC32.03 | Choisir et utiliser des bibliothèques et méthodes dédiées au domaine d'application</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </article>
 
-                <article class="card">
-                    <div class="card-glass">
-                        <div class="card-header">
-                            <h2>ERP IUT</h2>
-                            <span class="badge">Vue.js / Spring Boot</span>
+                    <div class="competency-card card-glass">
+                        <div class="comp-header">
+                            <h3><i class="fas fa-server"></i> Administrer</h3>
+                            <p>Installer, configurer et maintenir des infrastructures.</p>
                         </div>
-                        <div class="card-body custom-scroll">
-                            <h3>Description</h3>
-                            <p>Faciliter le remplissage, la gestion et la conservation des fiches ressources pour les professeurs, les membres de la direction, les intervenants, les autres départements. A terme, publier cette appli web et la rendre disponible pour tous les IUT de France.</p>
-                            
-                            <h3>Rôle personnel</h3>
-                            <p>Recueil des besoins auprès des membres concernés par le projet. Chef de projet (répartition des rôles, aide aux autres membres). Réflexion et cadrage de la maquette sur Figma. Développement front-end en Vue.js. Lien front/back avec Spring Boot (framework Java).</p>
-
-                            <h3>Compétence démontrée</h3>
-                            <ul>
-                                <li>Appliquer des principes d’accessibilité et d’ergonomie</li>
-                                <li>Organiser la restitution de données à travers la programmation et la visualisation</li>
-                                <li>Formaliser les besoins du client et de l'utilisateur</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://164.81.120.79" target="_blank" class="project-btn live">Voir le site</a>
-                            <a href="https://github.com/nbillaud1/sae_erp.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        <div class="comp-body custom-scroll">
+                            <div class="level-group">
+                                <h4>Niveau 1 : Installer et configurer un poste de travail</h4>
+                                <ul>
+                                    <li>AC13.01 | Identifier les différents composants (matériels et logiciels) d'un système numérique</li>
+                                    <li>AC13.02 | Utiliser les fonctionnalités de base d'un système multitâches / multiutilisateurs</li>
+                                    <li>AC13.03 | Installer et configurer un système d'exploitation et des outils de développement</li>
+                                    <li>AC13.04 | Configurer un poste de travail dans un réseau d'entreprise</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 2 : Déployer des services dans une architecture réseau</h4>
+                                <ul>
+                                    <li>AC23.01 | Concevoir et développer des applications communicantes</li>
+                                    <li>AC23.02 | Utiliser des serveurs et des services réseaux virtualisés</li>
+                                    <li>AC23.03 | Sécuriser les services et données d'un système</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 3 : Faire évoluer et maintenir un système informatique</h4>
+                                <ul>
+                                    <li>AC33.01 | Créer des processus de traitement automatisé</li>
+                                    <li>AC33.02 | Configurer un serveur et des services réseaux de manière avancée</li>
+                                    <li>AC33.03 | Appliquer une politique de sécurité au niveau de l'infrastructure</li>
+                                    <li>AC33.04 | Déployer et maintenir un réseau d'organisation en fonction de ses besoins</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </article>
 
-                <article class="card">
-                    <div class="card-glass">
-                        <div class="card-header">
-                            <h2>La Cosina</h2>
-                            <span class="badge">PHP / MySQL</span>
+                    <div class="competency-card card-glass">
+                        <div class="comp-header">
+                            <h3><i class="fas fa-database"></i> Gérer</h3>
+                            <p>Concevoir, gérer, administrer et exploiter les données.</p>
                         </div>
-                        <div class="card-body custom-scroll">
-                            <h3>Description</h3>
-                            <p>Création d’un site internet qui permet la gestion de recettes de cuisine.</p>
-                            
-                            <h3>Rôle personnel</h3>
-                            <p>Création de l’interface en PHP. Conception et implémentation de la base de données MySQL.</p>
-
-                            <h3>Compétence démontrée</h3>
-                            <ul>
-                                <li>Organiser la restitution de données à travers la programmation et la visualisation</li>
-                                <li>Développer des interfaces utilisateurs</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://github.com/nbillaud1/lacosina" target="_blank" class="project-btn">Lien GitHub</a>
+                        <div class="comp-body custom-scroll">
+                            <div class="level-group">
+                                <h4>Niveau 1 : Concevoir et mettre en place une base de données</h4>
+                                <ul>
+                                    <li>AC14.01 | Mettre à jour et interroger une base de données relationnelle</li>
+                                    <li>AC14.02 | Visualiser des données</li>
+                                    <li>AC14.03 | Concevoir une base de données relationnelle à partir d'un cahier des charges</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 2 : Optimiser et interagir avec une application</h4>
+                                <ul>
+                                    <li>AC24.01 | Optimiser les modèles de données de l'entreprise</li>
+                                    <li>AC24.02 | Assurer la sécurité des données (intégrité et confidentialité)</li>
+                                    <li>AC24.03 | Organiser la restitution de données à travers la programmation et la visualisation</li>
+                                    <li>AC24.04 | Manipuler des données hétérogènes</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 3 : Administrer et concevoir des systèmes décisionnels</h4>
+                                <ul>
+                                    <li>AC34.01 | Capturer et stocker des ensembles volumineux et complexes de données hétérogènes</li>
+                                    <li>AC34.02 | Préparer et extraire les données pour l'exploitation</li>
+                                    <li>AC34.03 | Appliquer des méthodes d'exploration et d'exploitation des données</li>
+                                    <li>AC34.04 | Mettre en production et optimiser le système de gestion de données</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </article>
 
-                <article class="card">
-                    <div class="card-glass">
-                        <div class="card-header">
-                            <h2>PyGame</h2>
-                            <span class="badge">Python</span>
+                    <div class="competency-card card-glass">
+                        <div class="comp-header">
+                            <h3><i class="fas fa-project-diagram"></i> Conduire</h3>
+                            <p>Organiser et piloter un projet informatique.</p>
                         </div>
-                        <div class="card-body custom-scroll">
-                            <h3>Description</h3>
-                            <p>Création d’un menu de mini jeux jouables en mode Joueur vs Joueur, Joueur vs Ordi ou Ordi vs Ordi. Développer un jeu de Morpion, de Puissance 4, Devine le Nombre et jeu des Allumettes.</p>
-                            
-                            <h3>Rôle personnel</h3>
-                            <p>Chef de projet. Création du Menu de jeux. Création du Morpion et Puissance 4 en mode Joueur vs Joueur. Ajout des ordinateurs et de leurs différents niveaux. Technos utilisées : Python, VsCode, Github.</p>
-
-                            <h3>Compétence démontrée</h3>
-                            <ul>
-                                <li>Analyser un problème avec méthode</li>
-                                <li>Comparer des algorithmes pour des problèmes classiques (tris simples, recherche...)</li>
-                            </ul>
-                        </div>
-                        <div class="card-footer">
-                            <a href="https://github.com/nbillaud1/mini_games_python.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        <div class="comp-body custom-scroll">
+                            <div class="level-group">
+                                <h4>Niveau 1 : Identifier les besoins métiers</h4>
+                                <ul>
+                                    <li>AC15.01 | Appréhender les besoins du client et de l'utilisateur</li>
+                                    <li>AC15.02 | Mettre en place les outils de gestion de projet</li>
+                                    <li>AC15.03 | Identifier les acteurs et les différentes phases d'un cycle de développement</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 2 : Appliquer une démarche de suivi de projet</h4>
+                                <ul>
+                                    <li>AC25.01 | Identifier les processus présents dans une organisation</li>
+                                    <li>AC25.02 | Formaliser les besoins du client et de l'utilisateur</li>
+                                    <li>AC25.03 | Identifier les critères de faisabilité d'un projet informatique</li>
+                                    <li>AC25.04 | Définir et mettre en œuvre une démarche de suivi de projet</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 3 : Participer à la conception d'un SI</h4>
+                                <ul>
+                                    <li>AC35.01 | Mesurer les impacts économiques, sociétaux et technologiques d'un projet</li>
+                                    <li>AC35.02 | Savoir intégrer un projet informatique dans le système d'information</li>
+                                    <li>AC35.03 | Savoir adapter un système d'information</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </article>
 
+                    <div class="competency-card card-glass">
+                        <div class="comp-header">
+                            <h3><i class="fas fa-users"></i> Collaborer</h3>
+                            <p>Travailler efficacement dans une équipe informatique.</p>
+                        </div>
+                        <div class="comp-body custom-scroll">
+                            <div class="level-group">
+                                <h4>Niveau 1 : Identifier ses aptitudes pour l'équipe</h4>
+                                <ul>
+                                    <li>AC16.01 | Appréhender l'écosystème numérique</li>
+                                    <li>AC16.02 | Découvrir les aptitudes requises selon les différents secteurs</li>
+                                    <li>AC16.03 | Identifier les statuts, les fonctions et les rôles de chaque membre</li>
+                                    <li>AC16.04 | Acquérir les compétences interpersonnelles pour travailler en équipe</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 2 : Situer son rôle et ses missions</h4>
+                                <ul>
+                                    <li>AC26.01 | Comprendre la diversité, la structure et la dimension de l'informatique</li>
+                                    <li>AC26.02 | Appliquer une démarche pour intégrer une équipe informatique</li>
+                                    <li>AC26.03 | Mobiliser les compétences interpersonnelles pour travailler en équipe</li>
+                                    <li>AC26.04 | Rendre compte de son activité professionnelle</li>
+                                </ul>
+                            </div>
+                            <div class="level-group">
+                                <h4>Niveau 3 : Manager une équipe informatique</h4>
+                                <ul>
+                                    <li>AC36.01 | Organiser et partager une veille technologique et informationnelle</li>
+                                    <li>AC36.02 | Identifier les enjeux de l'économie de l'innovation numérique</li>
+                                    <li>AC36.03 | Guider la conduite du changement informatique au sein d'une organisation</li>
+                                    <li>AC36.04 | Accompagner le management de projet informatique</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </main>
