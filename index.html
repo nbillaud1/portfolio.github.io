@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Nathan BILLAUD</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <section id="intro-screen">
+        <div class="intro-content">
+            <h1 class="glitch-text">NATHAN BILLAUD</h1>
+            <p>Étudiant en 2ème année de BUT Informatique</p>
+            <button id="enter-btn" class="glow-on-hover">
+                Entrer dans mon portfolio <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <main id="main-interface" class="hidden">
+        <nav class="top-nav">
+            <div class="logo">NB<span>.Dev</span></div>
+            <div class="social-links">
+                <a href="https://github.com/nbillaud1" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </nav>
+
+        <div class="carousel-wrapper">
+            <button class="nav-btn prev" id="btnPrev"><i class="fas fa-arrow-left"></i></button>
+            <button class="nav-btn next" id="btnNext"><i class="fas fa-arrow-right"></i></button>
+            
+            <div class="carousel-container">
+                
+                <article class="card active">
+                    <div class="card-glass">
+                        <div class="card-header">
+                            <h2>Latice</h2>
+                            <span class="badge">Java / JavaFX</span>
+                        </div>
+                        <div class="card-body custom-scroll">
+                            <h3>Description</h3>
+                            <p>Mon équipe et moi-même avons développé le jeu de Latice (un mélange entre le Scrabble et les Dominos). L’objectif de ce projet était de faciliter la gestion des événements et des finances du BDE de la promo d’informatique de l’IUT de Limoges.</p>
+                            
+                            <h3>Rôle personnel</h3>
+                            <p>Chef de projet (répartition des rôles, aide aux autres membres). Implémenter l’interface utilisateur en JavaFX. Plateforme de développement collaborative : Github. J’ai aussi participé au développement du back-end en Java lier au front via Scene Builder.</p>
+                            
+                            <h3>Technos utilisées</h3>
+                            <p>Python, SQL, MySQL, VsCode, Github</p>
+
+                            <h3>Compétence démontrée</h3>
+                            <ul>
+                                <li>Définir et mettre en œuvre une démarche de suivi de projet</li>
+                                <li>Vérifier et valider la qualité de l’application par les tests</li>
+                                <li>Concevoir, coder, tester, intégrer</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/nbillaud1/latice.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-glass">
+                        <div class="card-header">
+                            <h2>Gestion Compte OEIL</h2>
+                            <span class="badge">Python / SQL</span>
+                        </div>
+                        <div class="card-body custom-scroll">
+                            <h3>Description</h3>
+                            <p>L’objectif de ce projet était de faciliter la gestion des événements et des finances du BDE de la promo d’informatique de l’IUT de Limoges (OEIL).</p>
+                            
+                            <h3>Rôle personnel</h3>
+                            <p>Création d’une base de données contenant tous les adhérents à l’association, les événements passés, SQL, MySQL. Gestion de finances pour faciliter mon travail lorsque j’étais trésorier de l’association en Python. Sur VsCode et Github.</p>
+
+                            <h3>Compétence démontrée</h3>
+                            <ul>
+                                <li>Assurer la sécurité des données (intégrité, confidentialité)</li>
+                                <li>Visualiser des données</li>
+                                <li>Identifier les enjeux de l’économie de l’innovation numérique</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/nbillaud1/OEIL.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-glass">
+                        <div class="card-header">
+                            <h2>ERP IUT</h2>
+                            <span class="badge">Vue.js / Spring Boot</span>
+                        </div>
+                        <div class="card-body custom-scroll">
+                            <h3>Description</h3>
+                            <p>Faciliter le remplissage, la gestion et la conservation des fiches ressources pour les professeurs, les membres de la direction, les intervenants, les autres départements. A terme, publier cette appli web et la rendre disponible pour tous les IUT de France.</p>
+                            
+                            <h3>Rôle personnel</h3>
+                            <p>Recueil des besoins auprès des membres concernés par le projet. Chef de projet (répartition des rôles, aide aux autres membres). Réflexion et cadrage de la maquette sur Figma. Développement front-end en Vue.js. Lien front/back avec Spring Boot (framework Java).</p>
+
+                            <h3>Compétence démontrée</h3>
+                            <ul>
+                                <li>Appliquer des principes d’accessibilité et d’ergonomie</li>
+                                <li>Organiser la restitution de données à travers la programmation et la visualisation</li>
+                                <li>Formaliser les besoins du client et de l'utilisateur</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://164.81.120.79" target="_blank" class="project-btn live">Voir le site</a>
+                            <a href="https://github.com/nbillaud1/sae_erp.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-glass">
+                        <div class="card-header">
+                            <h2>La Cosina</h2>
+                            <span class="badge">PHP / MySQL</span>
+                        </div>
+                        <div class="card-body custom-scroll">
+                            <h3>Description</h3>
+                            <p>Création d’un site internet qui permet la gestion de recettes de cuisine.</p>
+                            
+                            <h3>Rôle personnel</h3>
+                            <p>Création de l’interface en PHP. Conception et implémentation de la base de données MySQL.</p>
+
+                            <h3>Compétence démontrée</h3>
+                            <ul>
+                                <li>Organiser la restitution de données à travers la programmation et la visualisation</li>
+                                <li>Développer des interfaces utilisateurs</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/nbillaud1/lacosina" target="_blank" class="project-btn">Lien GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-glass">
+                        <div class="card-header">
+                            <h2>PyGame</h2>
+                            <span class="badge">Python</span>
+                        </div>
+                        <div class="card-body custom-scroll">
+                            <h3>Description</h3>
+                            <p>Création d’un menu de mini jeux jouables en mode Joueur vs Joueur, Joueur vs Ordi ou Ordi vs Ordi. Développer un jeu de Morpion, de Puissance 4, Devine le Nombre et jeu des Allumettes.</p>
+                            
+                            <h3>Rôle personnel</h3>
+                            <p>Chef de projet. Création du Menu de jeux. Création du Morpion et Puissance 4 en mode Joueur vs Joueur. Ajout des ordinateurs et de leurs différents niveaux. Technos utilisées : Python, VsCode, Github.</p>
+
+                            <h3>Compétence démontrée</h3>
+                            <ul>
+                                <li>Analyser un problème avec méthode</li>
+                                <li>Comparer des algorithmes pour des problèmes classiques (tris simples, recherche...)</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">
+                            <a href="https://github.com/nbillaud1/mini_games_python.git" target="_blank" class="project-btn">Lien GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
