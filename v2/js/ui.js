@@ -6,7 +6,6 @@ import { GENRES } from './genres.js';
 const { gsap, ScrollTrigger, SplitText, CustomEase } = window;
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 // ---------- Contenu (content.js) ----------
 export function renderContent(content) {
@@ -16,21 +15,28 @@ export function renderContent(content) {
     const g = GENRES[+el.closest('[data-genre]').dataset.genre];
     el.textContent = `${g.num} · ${g.label} · ${g.bpm} BPM`;
   });
+  // Textes fixes de la page (TEXTES_V2 dans data.js)
+  const T = content.textes;
+  document.title = T.onglet;
+  $('.entree-btn-txt').textContent = T.entree.bouton;
+  $('#entree-note').textContent = T.entree.note;
+  $('#btn-entrer-muet').textContent = T.entree.sansSon;
+  $('.defiler .etiquette-txt').textContent = T.accueil.defiler;
+  Object.entries(T.sections).forEach(([id, titre]) => { const h = $(`#t-${id}`); if (h && id !== 'accueil') h.textContent = titre; });
+  $('.comp-note').textContent = T.competences.note;
+  $('.technos .etiquette-txt').textContent = T.competences.technos;
+
   $('#entree-nom').textContent = pres.nom;
   $('[data-nom]').textContent = pres.nom;
-  // Accroche : « Métier, rôle, rôle. Phrase suivante… »
-  // L'Accueil garde le métier ; la Présentation ouvre sur la seconde phrase (l'axe) et ne répète pas l'Accueil.
-  const phrases = pres.accroche.split(/(?<=\.)\s+/);
-  const parts = phrases[0].replace(/\.$/, '').split(', ');
-  $('[data-accroche]').textContent = `${cap(parts.slice(1).join(', '))}, à ${pres.lieu}.`;
-  $('[data-citation]').textContent = phrases.slice(1).join(' ');
+  $('[data-accroche]').textContent = pres.accroche;
+  $('[data-citation]').textContent = pres.citation;
   // Bloc de droite : le cursus, puis deux faits vérifiés déjà repris (content.presentation.faits), chacun avec son projet.
   const faits = (pres.faits || []).map((f) => {
     const p = content.projets.find((x) => x.id === f.projet);
     const texte = p && p.faits[f.fait] ? p.faits[f.fait].texte : '';
     return texte ? `<p class="fait"><b>${esc(p.titre)}</b>${esc(texte)}</p>` : '';
   }).join('');
-  $('[data-pres]').innerHTML = `<p>${esc(parts[0])}.</p>` + faits + `<p class="meta">${esc(pres.lieu)}</p>`;
+  $('[data-pres]').innerHTML = `<p>${esc(pres.texte)}</p>` + faits + `<p class="meta">${esc(pres.lieu)}</p>`;
 
   $('[data-projets]').innerHTML = content.projets.map((p, i) => {
     const lien = p.liens[0];

@@ -1,4 +1,5 @@
-// Contenu du portfolio : c'est le seul fichier à modifier pour mettre à jour les textes.
+// Contenu du portfolio : c'est le seul fichier à modifier pour mettre à jour les textes,
+// du site classique (index.html) comme de la version musicale (v2/).
 // Une section de projet absente de `sections` affiche un Lorem Ipsum.
 
 const LOREM = [
@@ -30,11 +31,113 @@ const PASSIONS = {
     sportImage: null // { src: "assets/passions/sport.jpg", alt: "…" }
 };
 
+// Textes fixes du site classique (index.html) : titres, boutons, menus. Chaque texte est affiché tel quel.
+const TEXTES = {
+    ongletAccueil: "Nathan Billaud, développeur",            // titre de l'onglet du navigateur
+    ongletCompetences: "Compétences, Nathan Billaud",
+    allerAuContenu: "Aller au contenu",                      // lien d'évitement, visible au clavier
+    menu: { projets: "Projets", competences: "Compétences", passions: "Passions" },
+    piedDePage: { github: "GitHub", hautDePage: "Haut de page" }, // le nom et l'année s'ajoutent seuls
+    hero: {
+        jeSuis: "Je suis",                                   // suivi des phrases de PROFILE.roles
+        voirProjets: "Voir mes projets",
+        ecrire: "M'écrire",
+        github: "GitHub"
+    },
+    projets: {
+        titre: "Projets",
+        intro: "Des projets d'école et des projets perso, du jeu de plateau à l'appli mobile.",
+        voirProjet: "Voir le projet",
+        videoAVenir: "Vidéo à venir"
+    },
+    experience: { titre: "Expérience" },
+    passions: {
+        titre: "Hors du code",
+        intro: "La musique et le sport, deux histoires de rythme.",
+        musique: "Musique",
+        sport: "Sport",
+        lancer: "Lancer le rythme",
+        arreter: "Arrêter le rythme",
+        tempo: "Tempo",
+        astuce: "Clique sur les cases pour composer ton propre rythme.",
+        photoAVenir: "Photo à venir",
+        instruments: { kick: "Grosse caisse", snare: "Caisse claire", hat: "Charleston" }
+    },
+    pageProjet: {
+        retour: "Retour aux projets",
+        type: "Type",
+        annee: "Année",
+        equipe: "Équipe",
+        technologies: "Technologies",
+        precedent: "Projet précédent",
+        suivant: "Projet suivant",
+        captureAVenir: "Capture à venir",
+        // Titres des sections d'un projet (le texte de chaque section se met dans `sections` du projet)
+        sections: {
+            contexte: "Contexte",
+            objectif: "Objectif",
+            role: "Mon rôle",
+            choix: "Choix techniques",
+            difficultes: "Difficultés rencontrées",
+            resultats: "Résultats et retours",
+            preuves: "Preuves",
+            competences: "Compétences démontrées"
+        }
+    },
+    pageCompetences: {
+        titre: "Compétences",
+        intro: "Le référentiel du BUT Informatique, avec pour chaque apprentissage critique les projets qui le démontrent.",
+        niveau: "Niveau",                                    // affiché « Niveau 1 : titre du niveau »
+        acDemontrees: "AC démontrées sur",                   // affiché « 3 AC démontrées sur 11 »
+        masquer: "Masquer les AC sans projet",
+        aucunProjet: "Pas encore de projet"
+    },
+    introuvable: {
+        titre: "Page introuvable",
+        texte: "Cette adresse ne correspond à aucune page.",
+        retour: "Revenir à l'accueil"
+    }
+};
+
+// Textes de la version musicale (v2/). Chaque texte est affiché tel quel, rien n'est recomposé.
+const TEXTES_V2 = {
+    onglet: "Nathan Billaud, version musicale",
+    entree: {
+        bouton: "Entrer",
+        note: "Le son démarre au clic. Casque conseillé.",
+        sansSon: "Entrer sans le son"
+    },
+    // Noms des sections : titres des pages et libellés de la platine
+    sections: {
+        accueil: "Accueil",
+        presentation: "Présentation",
+        projets: "Projets",
+        experiences: "Expériences",
+        competences: "Compétences"
+    },
+    accueil: {
+        accroche: "Développeur web, développeur mobile, à Limoges.", // sous le nom, en grand
+        defiler: "Défiler"
+    },
+    presentation: {
+        citation: "Actuellement à la recherche d'un stage entre Février et Juin 2027, je peux m'intégrer à votre entreprise afin de développer des services facilitant votre quotidien (sites web, applications, etc.). En dehors du code : la musique et le sport.",
+        texte: "Étudiant en BUT Informatique.",
+        lieu: "Limoges"
+        // L'e-mail, GitHub et LinkedIn viennent de PROFILE.
+    },
+    competences: {
+        note: "Référentiel du BUT Informatique, parcours A.",
+        niveau: "Niveau",                                    // affiché « Niveau : Confirmé. »
+        technos: "Technos les plus présentes (projets et travaux d'école qui les citent)"
+    }
+};
+
+// Affichage : site classique « role, org » ; version musicale « role · period » au-dessus de org.
 const EXPERIENCES = [
     {
-        period: "À compléter",
+        period: "Avril à Juin 2026",
         role: "Stage développeur",
-        org: "SNCF",
+        org: "Technicentre Industriel CHarentes-Périgord - SNCF",
         text: LOREM[0]
     }
 ];
@@ -42,6 +145,9 @@ const EXPERIENCES = [
 // video : "assets/projets/latice/demo.mp4" (courte boucle muette, ~10 s, idéalement < 3 Mo)
 // images : [{ src: "assets/projets/latice/1.png", alt: "Plateau de jeu en cours de partie" }]
 // acs : codes du référentiel ci-dessous. Ceux marqués « à valider » sont provisoires.
+// stack : affiché en étiquettes sur l'accueil, et séparé par des virgules sur la page du projet.
+// sections : { contexte: "…", objectif: "…", role: "…", choix: "…", difficultes: "…", resultats: "…" }
+//   (une section absente affiche le Lorem Ipsum ; un tableau ["…", "…"] donne plusieurs paragraphes)
 const PROJECTS = [
     {
         slug: "brick-breaker",

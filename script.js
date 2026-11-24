@@ -5,16 +5,8 @@ const app = $('#app');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fineHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-const SECTIONS = [
-    ['contexte', 'Contexte'],
-    ['objectif', 'Objectif'],
-    ['role', 'Mon rôle'],
-    ['choix', 'Choix techniques'],
-    ['difficultes', 'Difficultés rencontrées'],
-    ['resultats', 'Résultats et retours'],
-    ['preuves', 'Preuves'],
-    ['competences', 'Compétences démontrées']
-];
+const T = TEXTES;
+const SECTIONS = Object.entries(T.pageProjet.sections); // [clé, titre], dans l'ordre de data.js
 
 // code AC -> { label, comp }
 const AC_INDEX = new Map();
@@ -43,7 +35,7 @@ function media(p) {
     if (poster) return `<img src="${poster.src}" alt="${poster.alt}" loading="lazy">`;
     return `<div class="ph" role="img" aria-label="Vidéo de ${p.title} à venir">
         <span class="ph-title">${p.title}</span>
-        <span class="ph-note">Vidéo à venir</span>
+        <span class="ph-note">${T.projets.videoAVenir}</span>
     </div>`;
 }
 
@@ -58,9 +50,9 @@ function paragraphs(content) {
 /* ---------- Accueil ---------- */
 
 const DRUM_ROWS = [
-    ['kick', 'Grosse caisse', [1, 0, 0, 0, 1, 0, 0, 0]],
-    ['snare', 'Caisse claire', [0, 0, 1, 0, 0, 0, 1, 0]],
-    ['hat', 'Charleston', [1, 1, 1, 1, 1, 1, 1, 1]]
+    ['kick', T.passions.instruments.kick, [1, 0, 0, 0, 1, 0, 0, 0]],
+    ['snare', T.passions.instruments.snare, [0, 0, 1, 0, 0, 0, 1, 0]],
+    ['hat', T.passions.instruments.hat, [1, 1, 1, 1, 1, 1, 1, 1]]
 ];
 
 function renderHome() {
@@ -76,7 +68,7 @@ function renderHome() {
                 <h3><a href="#/projets/${p.slug}">${p.title}</a></h3>
                 <p>${p.tagline}</p>
                 <ul class="stack" aria-label="Technologies">${p.stack.map(s => `<li>${s}</li>`).join('')}</ul>
-                <a class="link" href="#/projets/${p.slug}" aria-label="Voir le projet ${p.title}">Voir le projet</a>
+                <a class="link" href="#/projets/${p.slug}" aria-label="${T.projets.voirProjet} ${p.title}">${T.projets.voirProjet}</a>
             </div>
         </article>`).join('');
 
@@ -97,58 +89,58 @@ function renderHome() {
 
     const sportMedia = PASSIONS.sportImage
         ? `<img src="${PASSIONS.sportImage.src}" alt="${PASSIONS.sportImage.alt}" loading="lazy">`
-        : placeholder('Photo à venir');
+        : placeholder(T.passions.photoAVenir);
 
     return `
         <section class="hero" aria-label="Présentation">
             <div class="hero-stage">
                 <h1 tabindex="-1" aria-label="${PROFILE.name}"><svg class="hero-name" id="heroName" aria-hidden="true"><text></text></svg></h1>
                 <p class="hero-typing">
-                    <span class="sr-only">Je suis ${PROFILE.roles.join(', ')}</span>
-                    <span aria-hidden="true">Je suis <span id="typed"></span><span class="caret"></span></span>
+                    <span class="sr-only">${T.hero.jeSuis} ${PROFILE.roles.join(' ')}</span>
+                    <span aria-hidden="true">${T.hero.jeSuis} <span id="typed"></span><span class="caret"></span></span>
                 </p>
                 <div class="bars" id="bars" aria-hidden="true">${bars}</div>
                 <div class="hero-foot">
                     <p>${PROFILE.intro}</p>
                     <div class="hero-actions">
-                        <a class="btn btn-light" href="#/projets">Voir mes projets</a>
-                        ${PROFILE.email ? `<a class="btn btn-ghost" href="mailto:${PROFILE.email}">M'écrire</a>` : ''}
-                        <a class="btn btn-ghost" href="${PROFILE.github}" target="_blank" rel="noopener">${ICONS.github}GitHub</a>
+                        <a class="btn btn-light" href="#/projets">${T.hero.voirProjets}</a>
+                        ${PROFILE.email ? `<a class="btn btn-ghost" href="mailto:${PROFILE.email}">${T.hero.ecrire}</a>` : ''}
+                        <a class="btn btn-ghost" href="${PROFILE.github}" target="_blank" rel="noopener">${ICONS.github}${T.hero.github}</a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="wrap section" id="projets" aria-labelledby="projets-title">
-            <h2 class="section-title" id="projets-title">Projets</h2>
-            <p class="section-intro">Des projets d'école et des projets perso, du jeu de plateau à l'appli mobile.</p>
+            <h2 class="section-title" id="projets-title">${T.projets.titre}</h2>
+            <p class="section-intro">${T.projets.intro}</p>
             <div class="projects">${cards}</div>
         </section>
 
         <section class="wrap section" id="experience" aria-labelledby="xp-title">
-            <h2 class="section-title" id="xp-title">Expérience</h2>
+            <h2 class="section-title" id="xp-title">${T.experience.titre}</h2>
             <ol class="xp-list">${xp}</ol>
         </section>
 
         <section class="wrap section" id="passions" aria-labelledby="passions-title">
-            <h2 class="section-title" id="passions-title">Hors du code</h2>
-            <p class="section-intro">La musique et le sport, deux histoires de rythme.</p>
+            <h2 class="section-title" id="passions-title">${T.passions.titre}</h2>
+            <p class="section-intro">${T.passions.intro}</p>
             <div class="passions">
                 <div class="passion">
-                    <h3>Musique</h3>
+                    <h3>${T.passions.musique}</h3>
                     <p>${PASSIONS.music}</p>
                     <div class="drum" id="drum">${drum}</div>
                     <div class="drum-controls">
-                        <button class="btn" type="button" id="drumPlay">Lancer le rythme</button>
-                        <label class="tempo">Tempo
+                        <button class="btn" type="button" id="drumPlay">${T.passions.lancer}</button>
+                        <label class="tempo">${T.passions.tempo}
                             <input type="range" id="tempo" min="70" max="170" value="110">
                             <output id="tempoOut" for="tempo">110 BPM</output>
                         </label>
                     </div>
-                    <p class="hint">Clique sur les cases pour composer ton propre rythme.</p>
+                    <p class="hint">${T.passions.astuce}</p>
                 </div>
                 <div class="passion">
-                    <h3>Sport</h3>
+                    <h3>${T.passions.sport}</h3>
                     <p>${PASSIONS.sport}</p>
                     <div class="passion-media">${sportMedia}</div>
                 </div>
@@ -162,7 +154,7 @@ function renderSection(p, key) {
     if (key === 'preuves') {
         const gallery = p.images.length
             ? p.images.map(img => `<figure><img src="${img.src}" alt="${img.alt}" loading="lazy"><figcaption>${img.alt}</figcaption></figure>`).join('')
-            : `<figure>${placeholder('Capture à venir')}</figure><figure>${placeholder('Capture à venir')}</figure>`;
+            : `<figure>${placeholder(T.pageProjet.captureAVenir)}</figure><figure>${placeholder(T.pageProjet.captureAVenir)}</figure>`;
         const links = p.links.length
             ? `<div class="links">${p.links.map(l => `<a class="btn" href="${l.url}" target="_blank" rel="noopener">${linkIcon(l.url)}${l.label}</a>`).join('')}</div>`
             : '';
@@ -198,14 +190,14 @@ function renderProject(slug) {
     return `
         <article class="project">
             <header class="wrap project-head">
-                <a class="back" href="#/projets">Retour aux projets</a>
+                <a class="back" href="#/projets">${T.pageProjet.retour}</a>
                 <h1 tabindex="-1">${p.title}</h1>
                 <p class="lead">${p.tagline}</p>
                 <dl class="meta">
-                    <div><dt>Type</dt><dd>${p.kind}</dd></div>
-                    <div><dt>Année</dt><dd>${p.year}</dd></div>
-                    <div><dt>Équipe</dt><dd>${p.team}</dd></div>
-                    <div><dt>Technologies</dt><dd>${p.stack.join(', ')}</dd></div>
+                    <div><dt>${T.pageProjet.type}</dt><dd>${p.kind}</dd></div>
+                    <div><dt>${T.pageProjet.annee}</dt><dd>${p.year}</dd></div>
+                    <div><dt>${T.pageProjet.equipe}</dt><dd>${p.team}</dd></div>
+                    <div><dt>${T.pageProjet.technologies}</dt><dd>${p.stack.join(', ')}</dd></div>
                 </dl>
             </header>
             <div class="wrap"><div class="cover">${media(p)}</div></div>
@@ -214,8 +206,8 @@ function renderProject(slug) {
                 <div class="p-content">${body}</div>
             </div>
             <nav class="wrap pager" aria-label="Autres projets">
-                <a href="#/projets/${prev.slug}"><span>Projet précédent</span><strong>${prev.title}</strong></a>
-                <a href="#/projets/${next.slug}"><span>Projet suivant</span><strong>${next.title}</strong></a>
+                <a href="#/projets/${prev.slug}"><span>${T.pageProjet.precedent}</span><strong>${prev.title}</strong></a>
+                <a href="#/projets/${next.slug}"><span>${T.pageProjet.suivant}</span><strong>${next.title}</strong></a>
             </nav>
         </article>`;
 }
@@ -230,7 +222,7 @@ function renderSkills() {
         return `
             <a class="ov-card" href="#/competences" data-scroll="comp-${comp.id}">
                 <span class="ov-name">${comp.name}</span>
-                <span class="ov-count">${shown} AC démontrées sur ${codes.length}</span>
+                <span class="ov-count">${shown} ${T.pageCompetences.acDemontrees} ${codes.length}</span>
                 <span class="ticks" aria-hidden="true">${ticks}</span>
             </a>`;
     }).join('');
@@ -244,12 +236,12 @@ function renderSkills() {
             </header>
             ${comp.levels.map((level, n) => `
                 <div class="level">
-                    <h3>Niveau ${n + 1} : ${level.title}</h3>
+                    <h3>${T.pageCompetences.niveau} ${n + 1} : ${level.title}</h3>
                     <ul>${level.acs.map(([code, label]) => {
                         const projs = projectsFor(code);
                         const chips = projs.length
                             ? projs.map(p => `<a class="chip" href="#/projets/${p.slug}">${p.title}</a>`).join('')
-                            : '<span class="none">Pas encore de projet</span>';
+                            : `<span class="none">${T.pageCompetences.aucunProjet}</span>`;
                         return `<li class="ac-row${projs.length ? '' : ' is-empty'}" id="${code}">
                             <span class="ac-code">${code}</span>
                             <span class="ac-label">${label}</span>
@@ -262,12 +254,12 @@ function renderSkills() {
     return `
         <div class="wrap skills">
             <header class="skills-head">
-                <h1 tabindex="-1">Compétences</h1>
-                <p class="lead">Le référentiel du BUT Informatique, avec pour chaque apprentissage critique les projets qui le démontrent.</p>
+                <h1 tabindex="-1">${T.pageCompetences.titre}</h1>
+                <p class="lead">${T.pageCompetences.intro}</p>
             </header>
             <div class="overview">${overview}</div>
             <div class="toolbar">
-                <button class="btn" type="button" id="filterToggle" aria-pressed="false">Masquer les AC sans projet</button>
+                <button class="btn" type="button" id="filterToggle" aria-pressed="false">${T.pageCompetences.masquer}</button>
             </div>
             <div class="comps" id="comps">${blocks}</div>
         </div>`;
@@ -276,8 +268,8 @@ function renderSkills() {
 function renderNotFound() {
     return `
         <section class="wrap skills-head">
-            <h1 tabindex="-1">Page introuvable</h1>
-            <p class="lead">Cette adresse ne correspond à aucune page. <a href="#/">Revenir à l'accueil</a></p>
+            <h1 tabindex="-1">${T.introuvable.titre}</h1>
+            <p class="lead">${T.introuvable.texte} <a href="#/">${T.introuvable.retour}</a></p>
         </section>`;
 }
 
@@ -297,7 +289,7 @@ function route() {
 
     if (page === '' || (page === 'projets' && !param) || page === 'passions') {
         app.innerHTML = renderHome();
-        document.title = 'Nathan Billaud, développeur';
+        document.title = T.ongletAccueil;
         if (page) target = page;
         drawName();
         startTyping();
@@ -306,11 +298,11 @@ function route() {
     } else if (page === 'projets') {
         app.innerHTML = renderProject(param);
         const p = PROJECTS.find(p => p.slug === param);
-        document.title = `${p ? p.title : 'Page introuvable'}, Nathan Billaud`;
+        document.title = `${p ? p.title : T.introuvable.titre}, ${PROFILE.name}`;
         watchToc();
     } else if (page === 'competences') {
         app.innerHTML = renderSkills();
-        document.title = 'Compétences, Nathan Billaud';
+        document.title = T.ongletCompetences;
         setupFilter();
         target = param;
     } else {
@@ -465,7 +457,7 @@ function startDrum() {
     };
     tick();
     seq.timer = setInterval(tick, 60000 / +$('#tempo').value / 2);
-    $('#drumPlay').textContent = 'Arrêter le rythme';
+    $('#drumPlay').textContent = T.passions.arreter;
 }
 
 function stopDrum() {
@@ -474,7 +466,7 @@ function stopDrum() {
     seq.step = 0;
     $$('#drum .is-now').forEach(c => c.classList.remove('is-now'));
     const btn = $('#drumPlay');
-    if (btn) btn.textContent = 'Lancer le rythme';
+    if (btn) btn.textContent = T.passions.lancer;
 }
 
 /* ---------- Autres interactions ---------- */
@@ -536,6 +528,14 @@ document.addEventListener('click', e => {
     scrollToId(link.dataset.scroll, link.dataset.scroll === 'app');
 });
 
+// Textes fixes de index.html, remplis depuis data.js
+$('.skip-link').textContent = T.allerAuContenu;
+$('#brandName').textContent = PROFILE.name;
+$$('[data-nav]').forEach(a => { a.textContent = T.menu[a.dataset.nav]; });
+$('#footerName').textContent = PROFILE.name;
+$('#footerGithub').href = PROFILE.github;
+$('#footerGithub').textContent = T.piedDePage.github;
+$('#footerTop').textContent = T.piedDePage.hautDePage;
 $('#year').textContent = new Date().getFullYear();
 setupTheme();
 window.addEventListener('hashchange', route);

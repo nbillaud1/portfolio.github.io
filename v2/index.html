@@ -30,25 +30,26 @@
 
   <!-- Écran d'entrée (DA §4.1) -->
   <div id="entree" class="entree" role="dialog" aria-modal="true" aria-labelledby="entree-nom" aria-describedby="entree-note">
-    <p id="entree-nom" class="entree-nom">Nathan Billaud</p>
+    <!-- Les textes de cette page sont remplis depuis ../data.js (TEXTES_V2 et PROFILE) par js/ui.js. -->
+    <p id="entree-nom" class="entree-nom"></p>
     <div class="entree-jauge" aria-hidden="true"><span></span></div>
-    <button id="btn-entrer" class="entree-btn" type="button" disabled><span class="entree-btn-txt">Entrer</span></button>
-    <p id="entree-note" class="entree-note">Le son démarre au clic. Casque conseillé.</p>
-    <button id="btn-entrer-muet" class="entree-lien" type="button" disabled>Entrer sans le son</button>
+    <button id="btn-entrer" class="entree-btn" type="button" disabled><span class="entree-btn-txt"></span></button>
+    <p id="entree-note" class="entree-note"></p>
+    <button id="btn-entrer-muet" class="entree-lien" type="button" disabled></button>
     <noscript><p class="entree-note">Cette démo a besoin de JavaScript.</p></noscript>
   </div>
 
   <main id="contenu" inert>
     <section id="accueil" class="section" data-genre="0" aria-labelledby="t-accueil">
       <p class="etiquette" data-etiquette></p>
-      <h1 id="t-accueil" class="accueil-nom" data-nom>Nathan Billaud</h1>
+      <h1 id="t-accueil" class="accueil-nom" data-nom></h1>
       <p class="accueil-accroche" data-accroche></p>
-      <div class="defiler" aria-hidden="true"><span class="etiquette-txt">Défiler</span><span class="defiler-trait"><i></i></span></div>
+      <div class="defiler" aria-hidden="true"><span class="etiquette-txt"></span><span class="defiler-trait"><i></i></span></div>
     </section>
 
     <section id="presentation" class="section" data-genre="1" aria-labelledby="t-presentation">
       <p class="etiquette" data-etiquette></p>
-      <h2 id="t-presentation" class="titre">Présentation</h2>
+      <h2 id="t-presentation" class="titre"></h2>
       <p class="pres-citation" data-citation></p>
       <div class="pres-texte" data-pres></div>
       <a class="contact-mail" data-mail href="#"></a>
@@ -57,13 +58,13 @@
 
     <section id="projets" class="section" data-genre="2" aria-labelledby="t-projets">
       <p class="etiquette" data-etiquette></p>
-      <h2 id="t-projets" class="titre">Projets</h2>
+      <h2 id="t-projets" class="titre"></h2>
       <ol class="tracklist" data-projets></ol>
     </section>
 
     <section id="experiences" class="section" data-genre="3" aria-labelledby="t-experiences">
       <p class="etiquette" data-etiquette></p>
-      <h2 id="t-experiences" class="titre">Expériences</h2>
+      <h2 id="t-experiences" class="titre"></h2>
       <div class="escalier" data-experiences></div>
     </section>
 
@@ -71,13 +72,13 @@
       <div class="comp-grille">
         <div class="comp-tete">
           <p class="etiquette" data-etiquette></p>
-          <h2 id="t-competences" class="titre">Compétences</h2>
-          <p class="comp-note">Référentiel du BUT Informatique, parcours A.</p>
+          <h2 id="t-competences" class="titre"></h2>
+          <p class="comp-note"></p>
         </div>
         <div class="comp-liste">
           <ol class="bacs" data-competences></ol>
           <div class="technos">
-            <p class="etiquette-txt">Technos les plus présentes (projets et travaux d'école qui les citent)</p>
+            <p class="etiquette-txt"></p>
             <ul data-technos></ul>
           </div>
         </div>

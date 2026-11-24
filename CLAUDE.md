@@ -3,7 +3,7 @@
 Site statique en HTML/CSS/JS, sans framework ni build, hébergé sur GitHub Pages (`nbillaud1/nbillaud1.github.io`, branche `main`). Pousser sur `main` met le site en ligne.
 
 ## Structure
-- `data.js` : **tout le contenu** (profil, expériences, projets, référentiel de compétences). Les modifications de texte se font ici uniquement.
+- `data.js` : **tous les textes**, y compris titres, boutons et menus (`TEXTES` pour le site classique, `TEXTES_V2` pour `v2/`), plus profil, expériences, projets, référentiel. Aucun texte visible en dur dans `index.html`, `script.js` ou `v2/` (seuls les `aria-label`, la balise `<title>`/meta description d'origine et les noms de genres musicaux restent dans le code). Ne rien recomposer à partir des textes : les afficher tels quels.
 - `script.js` : routeur par hash (`#/`, `#/projets`, `#/projets/<slug>`, `#/competences`, `#/competences/<AC>`) et rendu des pages par templates.
 - `style.css` : tokens de couleurs sur `:root`, thème sombre via `prefers-color-scheme` et `[data-theme]`.
 - `assets/projets/<slug>/` : captures d'écran, référencées dans `images` de chaque projet.
