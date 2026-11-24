@@ -13,7 +13,7 @@ export const content = {
   // Textes repris tels quels de TEXTES_V2 (data.js) : rien n'est recomposé ici.
   presentation: {
     nom: PROFILE.name,
-    accroche: T.accueil.accroche,
+    accroche: T.presentation.accroche,
     citation: T.presentation.citation,
     texte: T.presentation.texte,
     lieu: T.presentation.lieu,

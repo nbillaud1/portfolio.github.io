@@ -109,18 +109,16 @@ const TEXTES_V2 = {
     },
     // Noms des sections : titres des pages et libellés de la platine
     sections: {
-        accueil: "Accueil",
         presentation: "Présentation",
         projets: "Projets",
         experiences: "Expériences",
         competences: "Compétences"
     },
-    accueil: {
-        accroche: "Développeur web, développeur mobile, à Limoges.", // sous le nom, en grand
-        defiler: "Défiler"
-    },
+    // Première section : le nom et l'accroche en haut, puis le titre « Présentation », la citation, le texte et le contact
     presentation: {
-        citation: "Actuellement à la recherche d'un stage entre Février et Juin 2027, je peux m'intégrer à votre entreprise afin de développer des services facilitant votre quotidien (sites web, applications, etc.). En dehors du code : la musique et le sport.",
+        accroche: "Développeur full stack junior, 3ème année de BUT Informatique.", // sous le nom, en grand
+        defiler: "Défiler",                                  // petit repère en bas du premier écran
+        citation: "Actuellement à la recherche d'une alternance et d'une école d'ingénieur à partir de Septembre 2027, je peux m'intégrer à votre entreprise afin de développer des services facilitant votre quotidien (sites web, applications, etc.). En dehors du code, je suis passionné par la musique.",
         texte: "Étudiant en BUT Informatique.",
         lieu: "Limoges"
         // L'e-mail, GitHub et LinkedIn viennent de PROFILE.
@@ -136,7 +134,7 @@ const TEXTES_V2 = {
 const EXPERIENCES = [
     {
         period: "Avril à Juin 2026",
-        role: "Stage développeur",
+        role: "Stage Développeur",
         org: "Technicentre Industriel CHarentes-Périgord - SNCF",
         text: LOREM[0]
     }

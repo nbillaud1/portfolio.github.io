@@ -1,4 +1,4 @@
-// Les cinq ambiances (rock retiré le 2026-11-23) : paramètres visuels (docs/design/DA.md §2.4) et repères musicaux (docs/design/AUDIO.md §2).
+// Les quatre ambiances (rock retiré le 2026-11-23 ; jazz retiré le 2026-11-24, la Présentation prend l'ambient) : paramètres visuels (docs/design/DA.md §2.4) et repères musicaux (docs/design/AUDIO.md §2).
 // Les valeurs sont des valeurs de départ, à régler à l'œil et à l'oreille.
 
 // Noms des sections (platine, lecteur) : TEXTES_V2.sections dans data.js
@@ -7,7 +7,7 @@ const deg = (d) => (d * Math.PI) / 180;
 
 export const GENRES = [
   {
-    key: 'ambient', num: '01', section: S.accueil, id: 'accueil', label: 'Ambient', bpm: 64, swing: 0.5,
+    key: 'ambient', num: '01', section: S.presentation, id: 'presentation', label: 'Ambient', bpm: 64, swing: 0.5,
     palette: { bg: '#030507', line: '#7FA8C9', accent: '#E6F2FA', glow: '#1D4466' },
     vis: {
       active: 160, A: 0.55, lambda: 14, v: 0.05, angles: [0, 20, -15], travel: 0.35, turb: 0.08, S: 0.15,
@@ -19,19 +19,7 @@ export const GENRES = [
     cam: { pos: [0, 2.2, 7.5], look: [0, 0.4, -14], fov: 38, roll: 0 },
   },
   {
-    key: 'jazz', num: '02', section: S.presentation, id: 'presentation', label: 'Jazz', bpm: 96, swing: 0.6,
-    palette: { bg: '#080603', line: '#E0A93F', accent: '#FFF0C9', glow: '#7A4A0E' },
-    vis: {
-      active: 128, A: 0.7, lambda: 6.5, v: 0.12, angles: [35, -35, 80], travel: 0.6, turb: 0.18, S: 0.35,
-      width: 1.6, horizon: 0.45, base: 0.4, fade: [8, 38], rock: 0, step: 0, spring: 0, pump: 0,
-      bloom: [1.8, 0.75, 0.5], grain: 0.08, vignette: 0.62,
-      kB: 0.9, kL: 0.12, kM: 0.7, scint: 0.25, scintRate: 10,
-      ring: { c: 6, lr: 2.5, dec: 0.9, force: 0.9 },
-    },
-    cam: { pos: [-3.2, 1.6, 6.2], look: [1.5, 0.2, -10], fov: 34, roll: 2.5 },
-  },
-  {
-    key: 'house', num: '03', section: S.projets, id: 'projets', label: 'House', bpm: 124, swing: 0.54,
+    key: 'house', num: '02', section: S.projets, id: 'projets', label: 'House', bpm: 124, swing: 0.54,
     palette: { bg: '#020602', line: '#B4FF1F', accent: '#F3FFD1', glow: '#2A6B00' },
     vis: {
       active: 160, A: 0.45, lambda: 3.2, v: 0.26, angles: [0, 90, 0], travel: 2.2, turb: 0.05, S: 0.25,
@@ -43,7 +31,7 @@ export const GENRES = [
     cam: { pos: [0, 3.6, 5.5], look: [0, 0, -10], fov: 46, roll: 0 },
   },
   {
-    key: 'soul', num: '04', section: S.experiences, id: 'experiences', label: 'Soul / funk', bpm: 104, swing: 0.54,
+    key: 'soul', num: '03', section: S.experiences, id: 'experiences', label: 'Soul / funk', bpm: 104, swing: 0.54,
     palette: { bg: '#0A0502', line: '#FF8A26', accent: '#FFE2B3', glow: '#8E3208' },
     vis: {
       active: 128, A: 0.75, lambda: 4.2, v: 0.21, angles: [15, -25, 60], travel: 1.2, turb: 0.15, S: 0.4,
@@ -55,7 +43,7 @@ export const GENRES = [
     cam: { pos: [-1.5, 2.6, 6.8], look: [0, 0.2, -9], fov: 40, roll: 0 },
   },
   {
-    key: 'boombap', num: '05', section: S.competences, id: 'competences', label: 'Boom bap', bpm: 88, swing: 0.58,
+    key: 'boombap', num: '04', section: S.competences, id: 'competences', label: 'Boom bap', bpm: 88, swing: 0.58,
     palette: { bg: '#06030B', line: '#9F72FF', accent: '#F2E6CF', glow: '#3E2385' },
     vis: {
       active: 80, A: 0.8, lambda: 5.0, v: 0.18, angles: [0, 0, 45], travel: 0.9, turb: 0.22, S: 0.6,

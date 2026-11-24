@@ -21,8 +21,8 @@ export function renderContent(content) {
   $('.entree-btn-txt').textContent = T.entree.bouton;
   $('#entree-note').textContent = T.entree.note;
   $('#btn-entrer-muet').textContent = T.entree.sansSon;
-  $('.defiler .etiquette-txt').textContent = T.accueil.defiler;
-  Object.entries(T.sections).forEach(([id, titre]) => { const h = $(`#t-${id}`); if (h && id !== 'accueil') h.textContent = titre; });
+  $('.defiler .etiquette-txt').textContent = T.presentation.defiler;
+  Object.entries(T.sections).forEach(([id, titre]) => { const h = $(`#t-${id}`); if (h) h.textContent = titre; });
   $('.comp-note').textContent = T.competences.note;
   $('.technos .etiquette-txt').textContent = T.competences.technos;
 
@@ -271,7 +271,7 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
   };
   const show = (el) => gsap.set(el, { opacity: 1 });
   const titleChars = [];
-  const TITLE_EASE = ['expo.out', 'power3.out', 'power4.out', 'steps(1)', 'back.out(1.6)', 'elastic.out(1, 0.6)'];
+  const TITLE_EASE = ['expo.out', 'power4.out', 'steps(1)', 'back.out(1.6)'];
   const inView = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < window.innerHeight; };
 
   // Sortie du texte de la section quittée (DA §3.3) : les blocs visibles montent et s'éteignent, 20 ms d'écart.
@@ -332,29 +332,32 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
       show(acc);
       const l = split(acc, 'lines');
       gsap.from(l.lines, { y: 16, opacity: 0, stagger: 0.09, duration: 0.9, ease: 'onde', delay: 0.35 });
+      // Le bloc Présentation, plus bas dans la même section, apparaît quand il arrive à l'écran.
+      const presIn = () => {
+        show(titre);
+        gsap.from(split(titre, 'chars').chars, { yPercent: 110, opacity: 0, stagger: 0.018, duration: 0.7, ease: 'power3.out' });
+        const cit = sec.querySelector('.pres-citation');
+        const txt = sec.querySelector('.pres-texte');
+        show(cit); show(txt);
+        const lines = [...split(cit, 'lines').lines, ...[...txt.querySelectorAll('p:not(.meta)')].flatMap((p) => split(p, 'lines').lines), ...txt.querySelectorAll('p.meta')];
+        let t = 0.5;
+        lines.forEach((ln, k) => {
+          gsap.from(ln, { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: t });
+          t += k % 2 === 0 ? 0.375 : 0.25;
+        });
+        const mail = sec.querySelector('.contact-mail');
+        show(mail);
+        gsap.from(mail.querySelectorAll('.car'), { yPercent: 80, opacity: 0, stagger: 0.022, duration: 0.9, ease: 'elastic.out(1, 0.6)', delay: t });
+        gsap.to(sec.querySelector('.contact-liens'), { opacity: 1, duration: 0.6, delay: t + 0.6 });
+      };
+      triggers.push(ScrollTrigger.create({ trigger: titre, start: 'top 85%', once: true, onEnter: presIn }));
     } else if (i === 1) {
-      titleIn(0, 'power3.out');
-      const cit = sec.querySelector('.pres-citation');
-      const txt = sec.querySelector('.pres-texte');
-      show(cit); show(txt);
-      const lines = [...split(cit, 'lines').lines, ...[...txt.querySelectorAll('p:not(.meta)')].flatMap((p) => split(p, 'lines').lines), ...txt.querySelectorAll('p.meta')];
-      // Sur les croches swinguées à 96 BPM : 375 ms puis 250 ms
-      let t = 0.5;
-      lines.forEach((ln, k) => {
-        gsap.from(ln, { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: t });
-        t += k % 2 === 0 ? 0.375 : 0.25;
-      });
-      const mail = sec.querySelector('.contact-mail');
-      show(mail);
-      gsap.from(mail.querySelectorAll('.car'), { yPercent: 80, opacity: 0, stagger: 0.022, duration: 0.9, ease: 'elastic.out(1, 0.6)', delay: t });
-      gsap.to(sec.querySelector('.contact-liens'), { opacity: 1, duration: 0.6, delay: t + 0.6 });
-    } else if (i === 2) {
       titleIn(0, 'power4.out');
       const rows = [...sec.querySelectorAll('.piste')];
       rows.forEach((r, k) => {
         gsap.fromTo(r, { x: -24, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'power4.out', delay: 0.4 + k * 0.121 });
       });
-    } else if (i === 3) {
+    } else if (i === 2) {
       titleIn(0, 'elastic.out(1, 0.6)');
       // Même geste que l'ancien Contact (soul/funk) : lettres élastiques, puis le reste en fondu
       [...sec.querySelectorAll('.marche')].forEach((m, k) => {
@@ -363,7 +366,7 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
         gsap.from(split(m.querySelector('.marche-titre'), 'chars').chars, { yPercent: 80, opacity: 0, stagger: 0.022, duration: 0.9, ease: 'elastic.out(1, 0.6)', delay });
         gsap.fromTo([m.querySelector('.marche-meta'), m.querySelector('.marche-texte')], { opacity: 0 }, { opacity: 1, duration: 0.6, delay: delay + 0.9 });
       });
-    } else if (i === 4) {
+    } else if (i === 3) {
       titleIn(0, 'back.out(1.6)');
       gsap.to(sec.querySelector('.comp-note'), { opacity: 1, duration: 0.6, delay: 0.4 });
       [...sec.querySelectorAll('.bac')].forEach((b, k) => {

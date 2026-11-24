@@ -110,10 +110,9 @@ main[inert] { visibility: hidden; }
 }
 .section > * { grid-column: 1 / -1; }
 .section[data-genre="0"] { --fond: #030507; --ligne: #7FA8C9; --accent: #E6F2FA; --t-wght: 250; --t-opsz: 144; --t-soft: 50; --t-wonk: 0; --t-ls: -0.02em; --b-wght: 350; --b-wdth: 100; min-height: 130svh; padding-top: 20vh; }
-.section[data-genre="1"] { --fond: #080603; --ligne: #E0A93F; --accent: #FFF0C9; --t-wght: 380; --t-opsz: 144; --t-soft: 100; --t-wonk: 1; --t-style: italic; --t-ls: -0.01em; --b-wght: 380; --b-wdth: 92; }
-.section[data-genre="2"] { --fond: #020602; --ligne: #B4FF1F; --accent: #F3FFD1; --t-wght: 820; --t-opsz: 96; --t-soft: 0; --t-wonk: 0; --t-ls: -0.04em; --b-wght: 500; --b-wdth: 80; }
-.section[data-genre="3"] { --fond: #090202; --ligne: #FF2D1A; --accent: #FFD9C9; --t-wght: 900; --t-opsz: 144; --t-soft: 0; --t-wonk: 1; --t-ls: -0.03em; --b-wght: 600; --b-wdth: 75; }
-.section[data-genre="4"] { --fond: #06030B; --ligne: #9F72FF; --accent: #F2E6CF; --t-wght: 700; --t-opsz: 72; --t-soft: 30; --t-wonk: 0; --t-ls: -0.02em; --b-wght: 450; --b-wdth: 85; }
+.section[data-genre="1"] { --fond: #020602; --ligne: #B4FF1F; --accent: #F3FFD1; --t-wght: 820; --t-opsz: 96; --t-soft: 0; --t-wonk: 0; --t-ls: -0.04em; --b-wght: 500; --b-wdth: 80; }
+.section[data-genre="2"] { --fond: #090202; --ligne: #FF2D1A; --accent: #FFD9C9; --t-wght: 900; --t-opsz: 144; --t-soft: 0; --t-wonk: 1; --t-ls: -0.03em; --b-wght: 600; --b-wdth: 75; }
+.section[data-genre="3"] { --fond: #06030B; --ligne: #9F72FF; --accent: #F2E6CF; --t-wght: 700; --t-opsz: 72; --t-soft: 30; --t-wonk: 0; --t-ls: -0.02em; --b-wght: 450; --b-wdth: 85; }
 .section[data-genre="5"] { --fond: #0A0502; --ligne: #FF8A26; --accent: #FFE2B3; --t-wght: 620; --t-opsz: 144; --t-soft: 100; --t-wonk: 1; --t-style: italic; --t-ls: -0.02em; --b-wght: 420; --b-wdth: 100; }
 
 .serif {
@@ -137,7 +136,7 @@ main[inert] { visibility: hidden; }
 }
 p { max-width: 60ch; }
 
-/* 01 · Accueil */
+/* 01 · Présentation : nom et accroche */
 .accueil-nom {
   grid-column: 1 / 10; margin: 0; color: var(--accent);
   font-size: clamp(64px, 11vw, 176px); line-height: 0.88;
@@ -145,16 +144,17 @@ p { max-width: 60ch; }
 .accueil-accroche {
   grid-column: 2 / 7; margin: 32px 0 0; font-size: clamp(22px, 2vw, 30px); line-height: 1.2; color: var(--papier);
 }
+/* Calé sur le premier écran (la section continue avec la Présentation). */
 .defiler {
-  position: absolute; right: calc(var(--marge) + 150px); bottom: 34vh; display: flex; flex-direction: column; align-items: center; gap: 12px;
+  position: absolute; right: calc(var(--marge) + 150px); top: calc(96vh - 64px); display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 .defiler .etiquette-txt { margin: 0; color: rgb(237 232 223 / 0.78); }
 .defiler-trait { position: relative; display: block; width: 1px; height: 40px; background: rgb(237 232 223 / 0.18); overflow: hidden; }
 .defiler-trait i { position: absolute; left: 0; top: -8px; width: 1px; height: 8px; background: var(--accent); animation: defiler 1.8s ease-in-out infinite; }
 @keyframes defiler { from { transform: translateY(0); } to { transform: translateY(48px); } }
 
-/* 02 · Présentation */
-#presentation .etiquette, #presentation .titre { grid-column: 2 / 9; }
+/* 01 · Présentation (suite, sous le nom) */
+.pres-titre { grid-column: 2 / 9; margin-top: 85vh; }
 .pres-citation {
   grid-column: 3 / 8; margin: 36px 0 0; font-size: 30px; line-height: 1.25; color: var(--papier);
   font-style: italic; quotes: none;
@@ -309,7 +309,7 @@ p { max-width: 60ch; }
   .section { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .accueil-nom { grid-column: 1 / -1; }
   .accueil-accroche { grid-column: 1 / 7; }
-  #presentation .etiquette, #presentation .titre, .pres-citation { grid-column: 1 / -1; }
+  .pres-titre, .pres-citation { grid-column: 1 / -1; }
   .pres-texte { grid-column: 3 / -1; }
   .credits, .contact-liens { grid-column: 1 / -1; }
 }
@@ -321,7 +321,8 @@ p { max-width: 60ch; }
   .titre { font-size: clamp(44px, 12vw, 64px); }
   .accueil-nom { font-size: clamp(52px, 15vw, 72px); }
   .accueil-accroche { font-size: 20px; }
-  .defiler { right: var(--marge); bottom: 28vh; }
+  .defiler { right: var(--marge); top: calc(92vh - 64px); }
+  .pres-titre { margin-top: 70vh; }
   .pres-citation { font-size: 24px; }
   .pres-texte { margin-top: 8vh; }
   .piste a { grid-template-columns: 32px 1fr 24px; column-gap: 12px; }

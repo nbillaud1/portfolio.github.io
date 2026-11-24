@@ -89,8 +89,8 @@ function readingCalm() {
   const y = window.scrollY, h = window.innerHeight;
   let i = 0;
   for (let k = 0; k < sections.length; k++) if (sections[k].offsetTop <= y + h * 0.5) i = k;
-  if (i === 0) return 0;
-  const into = (y - sections[i].offsetTop) / h;          // pages lues dans la section
+  // Section 0 : le premier écran (nom) garde la nappe pleine, la lecture commence au bloc Présentation.
+  const into = (y - sections[i].offsetTop) / h - (i === 0 ? 0.8 : 0); // pages lues dans la section
   const next = sections[i + 1];
   const toNext = next ? (next.offsetTop - y) / h : 99;  // pages avant la section suivante
   return smooth(-0.3, 0.25, into) * smooth(0.1, 0.45, toNext);
