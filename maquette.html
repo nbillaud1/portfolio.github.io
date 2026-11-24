@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquette Tempo, Nathan Billaud</title>
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,400i,500i&display=swap" rel="stylesheet">
+    <style>
+        :root { --pulse: 0; --hud: 4.5rem; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font: 400 1rem/1.6 'General Sans', system-ui, sans-serif; background: #10163a; color: #f4f5ff; }
+
+        #waves { position: fixed; inset: 0; width: 100%; height: 100%; }
+        .scroller { position: relative; }
+        .stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+        .track { display: flex; height: 100%; will-change: transform; }
+        .scene {
+            flex: none;
+            min-width: 100vw;
+            height: 100%;
+            padding: clamp(1.5rem, 5vw, 4rem);
+            padding-bottom: calc(var(--hud) + 2rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .tempo { font: italic 400 1.15rem/1.3 'Boska', Georgia, serif; opacity: 0.8; margin-bottom: 0.75rem; }
+
+        /* Classique : serif, gestes lents */
+        .classic h1 { font: italic 400 clamp(3.5rem, 11vw, 10rem)/0.95 'Boska', Georgia, serif; letter-spacing: -0.02em; }
+        .classic h1 span { display: inline-block; animation: bow 1.6s cubic-bezier(0.3, 0, 0.2, 1) backwards; animation-delay: calc(var(--i) * 90ms); }
+        @keyframes bow { from { opacity: 0; transform: translateY(0.3em); } }
+        .classic .intro { max-width: 46ch; margin-top: 1.5rem; font-size: 1.15rem; opacity: 0.85; }
+        .cue { margin-top: 2.5rem; font-size: 0.95rem; opacity: 0.7; }
+
+        /* Pop : pochettes colorées qui rebondissent sur le temps */
+        .pop h2, .rock h2 { font: 700 clamp(3.5rem, 10vw, 9rem)/0.9 'Antonio', Impact, sans-serif; text-transform: uppercase; }
+        .covers { display: flex; gap: clamp(1rem, 2vw, 1.75rem); margin-top: 2rem; padding-right: 10vw; }
+        .cover {
+            flex: none;
+            width: min(34vh, 260px);
+            aspect-ratio: 1;
+            border-radius: 1rem;
+            padding: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #10163a;
+            text-decoration: none;
+            transform: translateY(calc(var(--pulse) * -8px)) rotate(var(--r, 0deg));
+            transition: rotate 0.3s;
+        }
+        .cover:nth-child(3n + 1) { background: #ff4fa3; }
+        .cover:nth-child(3n + 2) { background: #ffd23f; }
+        .cover:nth-child(3n) { background: #f4f5ff; }
+        .cover:nth-child(even) { margin-top: 4vh; }
+        .cover:hover, .cover:focus-visible { --r: -3deg; }
+        .cover strong { font: 700 clamp(1.6rem, 3.4vh, 2.4rem)/0.95 'Antonio', Impact, sans-serif; text-transform: uppercase; }
+        .cover span { font-size: 0.85rem; font-weight: 600; }
+
+        /* Rock : affiche de concert, secousses sur le temps */
+        .rock { transform: translate(var(--sx, 0), var(--sy, 0)); }
+        .rock h2 { color: #ff3b1f; text-shadow: 5px 5px 0 #f4f5ff; }
+        .duo { display: grid; grid-template-columns: repeat(2, minmax(0, 24rem)); gap: 1.5rem; margin-top: 2rem; }
+        .duo div { border: 2px solid #ff3b1f; padding: 1.25rem; background: #0e0e10; }
+        .duo h3 { font: 700 2rem/1 'Antonio', Impact, sans-serif; text-transform: uppercase; color: #ff3b1f; margin-bottom: 0.5rem; }
+
+        /* Lecteur en bas : où on en est dans le morceau */
+        .hud {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            height: var(--hud);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0 clamp(1rem, 4vw, 3rem);
+            background: #0b0d1c;
+            border-top: 1px solid #ffffff1a;
+        }
+        .now { min-width: 9rem; line-height: 1.25; }
+        .now strong { display: block; font-weight: 600; }
+        .now span { font: italic 1rem 'Boska', Georgia, serif; opacity: 0.75; }
+        .bar { flex: 1; display: flex; gap: 4px; position: relative; height: 2.25rem; }
+        .bar button {
+            flex: 1;
+            border: 0;
+            border-radius: 0.4rem;
+            background: #ffffff14;
+            color: #f4f5ff;
+            font: 600 0.85rem 'General Sans', system-ui, sans-serif;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .bar button:hover { background: #ffffff24; }
+        .bar button[aria-current="true"] { background: #ffffff33; }
+        .playhead { position: absolute; top: -6px; bottom: -6px; width: 2px; background: #f4f5ff; pointer-events: none; }
+        .bpm { min-width: 5.5rem; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+        :focus-visible { outline: 2px solid #ffd23f; outline-offset: 3px; }
+
+        @media (max-width: 600px) {
+            .now { display: none; }
+            .duo { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="waves" aria-hidden="true"></canvas>
+
+    <div class="scroller" id="scroller">
+        <div class="stage">
+            <div class="track" id="track">
+                <section class="scene classic" aria-label="Présentation">
+                    <p class="tempo">Premier mouvement, andante</p>
+                    <h1 id="name"></h1>
+                    <p class="intro" id="intro"></p>
+                    <p class="cue">Fais défiler pour avancer dans le morceau</p>
+                </section>
+                <section class="scene pop" aria-label="Projets">
+                    <p class="tempo">Deuxième mouvement, allegro</p>
+                    <h2>Projets</h2>
+                    <div class="covers" id="covers"></div>
+                </section>
+                <section class="scene rock" id="rock" aria-label="Loisirs">
+                    <p class="tempo">Troisième mouvement, presto</p>
+                    <h2>Hors du code</h2>
+                    <div class="duo">
+                        <div><h3>Musique</h3><p id="music"></p></div>
+                        <div><h3>Sport</h3><p id="sport"></p></div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <nav class="hud" aria-label="Mouvements du portfolio">
+        <div class="now"><strong id="nowName">Classique</strong><span id="nowTempo">Andante</span></div>
+        <div class="bar">
+            <button type="button" data-i="0">Classique</button>
+            <button type="button" data-i="1">Pop</button>
+            <button type="button" data-i="2">Rock</button>
+            <i class="playhead" id="playhead"></i>
+        </div>
+        <div class="bpm" id="bpm">60 BPM</div>
+    </nav>
+
+    <script src="data.js"></script>
+    <script>
+        const $ = id => document.getElementById(id);
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Contenu réel tiré de data.js
+        $('name').setAttribute('aria-label', PROFILE.name);
+        $('name').innerHTML = [...PROFILE.name].map((c, i) =>
+            `<span aria-hidden="true" style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+        $('intro').textContent = PROFILE.intro;
+        $('covers').innerHTML = PROJECTS.map(p =>
+            `<a class="cover" href="index.html#/projets/${p.slug}"><span>${p.stack.join(', ')}</span><strong>${p.title}</strong></a>`).join('');
+        $('music').textContent = PASSIONS.music;
+        $('sport').textContent = PASSIONS.sport;
+
+        const PHASES = [
+            { name: 'Classique', tempo: 'Andante', bpm: 60, bg: [16, 22, 58] },
+            { name: 'Pop', tempo: 'Allegro', bpm: 120, bg: [35, 55, 216] },
+            { name: 'Rock', tempo: 'Presto', bpm: 168, bg: [14, 14, 16] }
+        ];
+
+        const canvas = $('waves');
+        const ctx = canvas.getContext('2d');
+        const track = $('track');
+        const scenes = [...track.children];
+        const buttons = [...document.querySelectorAll('.bar button')];
+        let W, H, maxX = 0, starts = [];
+
+        // Le défilement vertical fait avancer la caméra horizontalement (travelling)
+        function layout() {
+            const dpr = Math.min(devicePixelRatio, 2);
+            W = innerWidth;
+            H = innerHeight;
+            canvas.width = W * dpr;
+            canvas.height = H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            maxX = scenes.reduce((sum, s) => sum + s.offsetWidth, 0) - W;
+            $('scroller').style.height = `${maxX + H}px`;
+            starts = scenes.map(s => s.offsetLeft);
+        }
+
+        const smooth = v => { v = Math.min(1, Math.max(0, v)); return v * v * (3 - 2 * v); };
+        // 0 = classique, 1 = pop, 2 = rock ; la bascule se fait quand la frontière passe au centre de l'écran
+        function phaseAt(x) {
+            const c = x + W / 2, span = W * 0.7;
+            return smooth((c - starts[1] + span / 2) / span) + smooth((c - starts[2] + span / 2) / span);
+        }
+
+        function classique(a, t) {
+            ctx.globalAlpha = a;
+            ctx.lineWidth = 1.2;
+            for (let i = 0; i < 7; i++) {
+                ctx.strokeStyle = `rgba(244,245,255,${0.15 + i * 0.08})`;
+                ctx.beginPath();
+                for (let x = 0; x <= W; x += 8) {
+                    const y = H * 0.68 + Math.sin(x * 0.0035 + t * 0.5 + i * 0.7) * (18 + i * 9) * Math.sin(t * 0.3 + i * 0.9 + x * 0.001);
+                    x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+                }
+                ctx.stroke();
+            }
+        }
+
+        function pop(a, t, pulse) {
+            ctx.globalAlpha = a * 0.25;
+            ctx.fillStyle = '#ff4fa3';
+            ctx.beginPath();
+            ctx.arc(W * 0.8, H * 0.3, Math.min(W, H) * 0.22 * (1 + 0.12 * pulse), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = a;
+            const n = 40, bw = W / n, colors = ['#ff4fa3', '#ffd23f', '#f4f5ff'];
+            for (let i = 0; i < n; i++) {
+                const h = (0.2 + 0.8 * Math.abs(Math.sin(i * 0.45 + t * 1.6))) * H * 0.18 * (0.55 + 0.45 * pulse);
+                ctx.fillStyle = colors[i % 3];
+                ctx.beginPath();
+                ctx.roundRect(i * bw + bw * 0.2, H * 0.86 - h, bw * 0.6, h, bw * 0.3);
+                ctx.fill();
+            }
+        }
+
+        function rock(a, t, pulse) {
+            ctx.globalAlpha = a;
+            const amp = H * 0.13 * (0.45 + 0.55 * pulse);
+            [['#ff3b1f', 4, 0], ['rgba(244,245,255,.5)', 1.5, 9]].forEach(([color, width, offset]) => {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = width;
+                ctx.beginPath();
+                for (let x = 0; x <= W; x += 7) {
+                    const noise = reduced ? 0 : (Math.random() - 0.5) * 0.5;
+                    // onde saturée : on écrête comme une guitare distordue
+                    const v = Math.max(-1, Math.min(1, Math.sin(x * 0.018 + t * 9) * 1.7 + Math.sin(x * 0.051 - t * 5) * 0.6 + noise));
+                    const y = H * 0.7 + offset + v * amp;
+                    x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+                }
+                ctx.stroke();
+            });
+        }
+
+        let beat = 0, last = performance.now(), shown = -1;
+        function frame(now) {
+            const dt = Math.min(0.05, (now - last) / 1000);
+            last = now;
+            const x = Math.min(maxX, scrollY);
+            track.style.transform = `translateX(${-x}px)`;
+
+            const p = phaseAt(x);
+            const w = PHASES.map((_, i) => Math.max(0, 1 - Math.abs(p - i)));
+            const bpm = PHASES.reduce((sum, ph, i) => sum + ph.bpm * w[i], 0);
+            if (!reduced) beat += dt * bpm / 60;
+            const pulse = reduced ? 0 : Math.exp(-(beat % 1) * 5);
+            const t = reduced ? 0 : now / 1000;
+
+            const bg = [0, 1, 2].map(c => Math.round(PHASES.reduce((sum, ph, i) => sum + ph.bg[c] * w[i], 0)));
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = `rgb(${bg})`;
+            ctx.fillRect(0, 0, W, H);
+            if (w[0]) classique(w[0], t);
+            if (w[1]) pop(w[1], t, pulse);
+            if (w[2]) rock(w[2], t, pulse);
+
+            document.documentElement.style.setProperty('--pulse', pulse.toFixed(3));
+            const shake = w[2] * pulse * 6;
+            $('rock').style.setProperty('--sx', `${(Math.random() - 0.5) * shake}px`);
+            $('rock').style.setProperty('--sy', `${(Math.random() - 0.5) * shake}px`);
+
+            const current = Math.round(p);
+            if (current !== shown) {
+                shown = current;
+                $('nowName').textContent = PHASES[current].name;
+                $('nowTempo').textContent = PHASES[current].tempo;
+                buttons.forEach((b, i) => b.setAttribute('aria-current', i === current));
+            }
+            $('bpm').textContent = `${Math.round(bpm)} BPM`;
+            $('playhead').style.left = `${maxX ? x / maxX * 100 : 0}%`;
+            requestAnimationFrame(frame);
+        }
+
+        buttons.forEach(b => b.addEventListener('click', () =>
+            scrollTo({ top: starts[b.dataset.i], behavior: reduced ? 'auto' : 'smooth' })));
+        addEventListener('resize', layout);
+        layout();
+        requestAnimationFrame(frame);
+    </script>
+</body>
+</html>

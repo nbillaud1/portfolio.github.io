@@ -1,0 +1,19 @@
+- Brick Breaker (capture d'écran)
+- Latice (captures d'écran)
+- NathanApp (app Mobile Maui => Captures d'écran)
+- taskListAPp (captures d'écran)
+- refaire SSBUTips merge "citelestous" (puis l'héberger)
+- Landings Pages
+- SAE erp / Road Trip ?
+Parler du Stage SNCF
+
+
+Par projet : 
+- contexte
+- objectif
+- mon rôle
+- choix technique
+- difficultés rencontrées
+- résultats et retours
+- preuves
+- les Compétences démontrées (dans l'onglet compétence où chaque compétence est liée à un projet)

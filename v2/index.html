@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Nathan Billaud, version musicale</title>
+  <meta name="description" content="Démo de portfolio : une nappe de lignes lumineuses qui réagit à une musique générée en direct, un genre par section.">
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Cpath d='M3 18c4 0 4-6 8-6s4 10 8 10 4-8 10-8' fill='none' stroke='%237FA8C9' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="vendor/fonts/fraunces/full.css">
+  <link rel="stylesheet" href="vendor/fonts/fraunces/full-italic.css">
+  <link rel="stylesheet" href="vendor/fonts/bricolage-grotesque/standard.css">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/three.module.js",
+      "postprocessing": "./vendor/postprocessing/index.js",
+      "smplr": "./vendor/smplr/index.mjs",
+      "lenis": "./vendor/lenis/lenis.mjs"
+    }
+  }
+  </script>
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+</head>
+<body>
+  <canvas id="nappe" aria-hidden="true"></canvas>
+  <div class="voile" aria-hidden="true"></div>
+  <div class="repli" aria-hidden="true"></div>
+
+  <!-- Écran d'entrée (DA §4.1) -->
+  <div id="entree" class="entree" role="dialog" aria-modal="true" aria-labelledby="entree-nom" aria-describedby="entree-note">
+    <p id="entree-nom" class="entree-nom">Nathan Billaud</p>
+    <div class="entree-jauge" aria-hidden="true"><span></span></div>
+    <button id="btn-entrer" class="entree-btn" type="button" disabled><span class="entree-btn-txt">Entrer</span></button>
+    <p id="entree-note" class="entree-note">Le son démarre au clic. Casque conseillé.</p>
+    <button id="btn-entrer-muet" class="entree-lien" type="button" disabled>Entrer sans le son</button>
+    <noscript><p class="entree-note">Cette démo a besoin de JavaScript.</p></noscript>
+  </div>
+
+  <main id="contenu" inert>
+    <section id="accueil" class="section" data-genre="0" aria-labelledby="t-accueil">
+      <p class="etiquette" data-etiquette></p>
+      <h1 id="t-accueil" class="accueil-nom" data-nom>Nathan Billaud</h1>
+      <p class="accueil-accroche" data-accroche></p>
+      <div class="defiler" aria-hidden="true"><span class="etiquette-txt">Défiler</span><span class="defiler-trait"><i></i></span></div>
+    </section>
+
+    <section id="presentation" class="section" data-genre="1" aria-labelledby="t-presentation">
+      <p class="etiquette" data-etiquette></p>
+      <h2 id="t-presentation" class="titre">Présentation</h2>
+      <p class="pres-citation" data-citation></p>
+      <div class="pres-texte" data-pres></div>
+      <a class="contact-mail" data-mail href="#"></a>
+      <ul class="contact-liens" data-liens></ul>
+    </section>
+
+    <section id="projets" class="section" data-genre="2" aria-labelledby="t-projets">
+      <p class="etiquette" data-etiquette></p>
+      <h2 id="t-projets" class="titre">Projets</h2>
+      <ol class="tracklist" data-projets></ol>
+    </section>
+
+    <section id="experiences" class="section" data-genre="3" aria-labelledby="t-experiences">
+      <p class="etiquette" data-etiquette></p>
+      <h2 id="t-experiences" class="titre">Expériences</h2>
+      <div class="escalier" data-experiences></div>
+    </section>
+
+    <section id="competences" class="section" data-genre="4" aria-labelledby="t-competences">
+      <div class="comp-grille">
+        <div class="comp-tete">
+          <p class="etiquette" data-etiquette></p>
+          <h2 id="t-competences" class="titre">Compétences</h2>
+          <p class="comp-note">Référentiel du BUT Informatique, parcours A.</p>
+        </div>
+        <div class="comp-liste">
+          <ol class="bacs" data-competences></ol>
+          <div class="technos">
+            <p class="etiquette-txt">Technos les plus présentes (projets et travaux d'école qui les citent)</p>
+            <ul data-technos></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Platine (DA §5.3) -->
+  <nav id="platine" class="platine" aria-label="Platine : changer de genre" hidden>
+    <div class="platine-zone">
+      <svg class="platine-disque" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="49" class="p-vinyle"/>
+        <circle cx="50" cy="50" r="44" class="p-sillon"/>
+        <circle cx="50" cy="50" r="39" class="p-sillon"/>
+        <circle cx="50" cy="50" r="34" class="p-sillon"/>
+        <circle cx="50" cy="50" r="29" class="p-sillon"/>
+        <circle cx="50" cy="50" r="24" class="p-sillon"/>
+        <circle cx="50" cy="50" r="21" class="p-sillon"/>
+        <circle cx="50" cy="50" r="17" class="p-macaron"/>
+        <path d="M50 36 a14 14 0 0 1 12 7" class="p-reflet"/>
+        <circle cx="50" cy="50" r="2.2" class="p-trou"/>
+      </svg>
+      <span class="platine-bras" aria-hidden="true"></span>
+      <ul class="platine-secteurs" data-secteurs></ul>
+    </div>
+  </nav>
+
+  <!-- Lecteur (DA §5.4) -->
+  <div id="lecteur" class="lecteur" hidden>
+    <button class="l-btn l-pause" type="button" aria-label="Pause (Espace)" data-pause><span class="ic-pause" aria-hidden="true"></span></button>
+    <button class="l-btn l-muet" type="button" aria-label="Couper le son (M)" aria-pressed="false" data-muet><span class="ic-hp" aria-hidden="true"></span></button>
+    <div class="l-volume">
+      <div class="l-barres" aria-hidden="true" data-barres></div>
+      <input type="range" min="0" max="100" step="1" value="80" aria-label="Volume" data-volume>
+    </div>
+    <p class="l-genre" aria-live="polite"><span data-genre-txt>Ambient · Accueil · 64 BPM</span></p>
+  </div>
+
+  <script src="vendor/gsap/gsap.min.js"></script>
+  <script src="vendor/gsap/ScrollTrigger.min.js"></script>
+  <script src="vendor/gsap/SplitText.min.js"></script>
+  <script src="vendor/gsap/CustomEase.min.js"></script>
+  <script src="../data.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
