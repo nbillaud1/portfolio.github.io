@@ -114,13 +114,13 @@ const TEXTES_V2 = {
         experiences: "Expériences",
         competences: "Compétences"
     },
-    // Première section : le nom et l'accroche en haut, puis le titre « Présentation », la citation, le texte et le contact
+    // Première section, tout sur le premier écran : nom, accroche, lieu ; puis « Présentation » et la citation à gauche,
+    // les liens LinkedIn, GitHub et e-mail à droite (adresses tirées de PROFILE)
     presentation: {
         accroche: "Développeur full stack junior, 3ème année de BUT Informatique.", // sous le nom, en grand
         defiler: "Défiler",                                  // petit repère en bas du premier écran
         citation: "Actuellement à la recherche d'une alternance et d'une école d'ingénieur à partir de Septembre 2027, je peux m'intégrer à votre entreprise afin de développer des services facilitant votre quotidien (sites web, applications, etc.). En dehors du code, je suis passionné par la musique.",
-        texte: "Étudiant en BUT Informatique.",
-        lieu: "Limoges"
+        lieu: "Limoges"                                     // sous l'accroche
         // L'e-mail, GitHub et LinkedIn viennent de PROFILE.
     },
     competences: {

@@ -15,7 +15,6 @@ export const content = {
     nom: PROFILE.name,
     accroche: T.presentation.accroche,
     citation: T.presentation.citation,
-    texte: T.presentation.texte,
     lieu: T.presentation.lieu,
     faits: [],
   },
@@ -50,6 +49,6 @@ export const content = {
   contact: {
     email: { texte: PROFILE.email || '', url: PROFILE.email ? `mailto:${PROFILE.email}` : '#' },
     github: { texte: (PROFILE.github || '').replace('https://', ''), url: PROFILE.github || '#' },
-    linkedin: { texte: (PROFILE.linkedin || '').replace('https://www.', ''), url: PROFILE.linkedin || '#' },
+    linkedin: { texte: (PROFILE.linkedin || '').replace('https://www.', '').replace(/\/$/, ''), url: PROFILE.linkedin || '#' },
   },
 };

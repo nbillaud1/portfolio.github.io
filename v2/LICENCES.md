@@ -17,3 +17,8 @@
 - Contrebasse : D. Smolken, CC0 (https://smpldsnds.github.io/sfzinstruments-dsmolken-double-bass).
 - Percussions : Versilian Community Sample Library, CC0.
 - Le reste (balais, guitares, cuivres, claviers) est synthétisé en direct avec Tone.js.
+
+## Icônes (dans js/ui.js)
+- GitHub : Octicons « mark-github », licence MIT (GitHub, Inc.).
+- LinkedIn : Simple Icons, CC0 (le logo reste une marque de LinkedIn).
+- E-mail : tracé maison.

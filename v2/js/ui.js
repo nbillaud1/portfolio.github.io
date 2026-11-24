@@ -5,6 +5,13 @@ import { GENRES } from './genres.js';
 
 const { gsap, ScrollTrigger, SplitText, CustomEase } = window;
 
+// Icônes des liens : GitHub (Octicons, licence MIT), LinkedIn (Simple Icons, CC0), e-mail (tracé maison).
+const ICONES = {
+  github: '<svg class="ico" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>',
+  linkedin: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+  mail: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>',
+};
+
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 // ---------- Contenu (content.js) ----------
@@ -30,13 +37,7 @@ export function renderContent(content) {
   $('[data-nom]').textContent = pres.nom;
   $('[data-accroche]').textContent = pres.accroche;
   $('[data-citation]').textContent = pres.citation;
-  // Bloc de droite : le cursus, puis deux faits vérifiés déjà repris (content.presentation.faits), chacun avec son projet.
-  const faits = (pres.faits || []).map((f) => {
-    const p = content.projets.find((x) => x.id === f.projet);
-    const texte = p && p.faits[f.fait] ? p.faits[f.fait].texte : '';
-    return texte ? `<p class="fait"><b>${esc(p.titre)}</b>${esc(texte)}</p>` : '';
-  }).join('');
-  $('[data-pres]').innerHTML = `<p>${esc(pres.texte)}</p>` + faits + `<p class="meta">${esc(pres.lieu)}</p>`;
+  $('[data-lieu]').textContent = pres.lieu;
 
   $('[data-projets]').innerHTML = content.projets.map((p, i) => {
     const lien = p.liens[0];
@@ -67,18 +68,14 @@ export function renderContent(content) {
     </li>`).join('');
   $('[data-technos]').innerHTML = content.competences.technos.map((t) => `<li>${esc(t.nom)}<b>${t.n}</b></li>`).join('');
 
-  const mail = $('[data-mail]');
-  mail.href = content.contact.email.url;
-  mail.setAttribute('aria-label', `Écrire à ${content.contact.email.texte}`);
-  mail.innerHTML = [...content.contact.email.texte].map((c) => `<span class="car" aria-hidden="true">${esc(c)}</span>`).join('');
+  // Liens utiles, même format pour les trois : icône puis adresse courte
   const c = content.contact;
-  $('[data-liens]').innerHTML = [
-    `<li><a href="${esc(c.github.url)}" target="_blank" rel="noopener">${esc(c.github.texte)}</a></li>`,
-    `<li><a href="${esc(c.linkedin.url)}" target="_blank" rel="noopener">${esc(c.linkedin.texte)}</a></li>`,
-  ].join('');
+  const lien = (l, icone, nouvelOnglet = true) => l.texte
+    ? `<li><a href="${esc(l.url)}"${nouvelOnglet ? ' target="_blank" rel="noopener"' : ''}>${icone}<span>${esc(l.texte)}</span></a></li>` : '';
+  $('[data-liens]').innerHTML = lien(c.linkedin, ICONES.linkedin) + lien(c.github, ICONES.github) + lien(c.email, ICONES.mail, false);
 
   // Éléments révélés à l'apparition
-  document.querySelectorAll('.section .titre, .accueil-nom, .accueil-accroche, .pres-citation, .pres-texte, .contact-mail, .contact-liens, .technos, .comp-note')
+  document.querySelectorAll('.section .titre, .accueil-nom, .accueil-accroche, .accueil-lieu, .pres-citation, .pres-liens, .technos, .comp-note')
     .forEach((el) => el.setAttribute('data-app', ''));
 }
 
@@ -332,25 +329,16 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
       show(acc);
       const l = split(acc, 'lines');
       gsap.from(l.lines, { y: 16, opacity: 0, stagger: 0.09, duration: 0.9, ease: 'onde', delay: 0.35 });
-      // Le bloc Présentation, plus bas dans la même section, apparaît quand il arrive à l'écran.
-      const presIn = () => {
-        show(titre);
-        gsap.from(split(titre, 'chars').chars, { yPercent: 110, opacity: 0, stagger: 0.018, duration: 0.7, ease: 'power3.out' });
-        const cit = sec.querySelector('.pres-citation');
-        const txt = sec.querySelector('.pres-texte');
-        show(cit); show(txt);
-        const lines = [...split(cit, 'lines').lines, ...[...txt.querySelectorAll('p:not(.meta)')].flatMap((p) => split(p, 'lines').lines), ...txt.querySelectorAll('p.meta')];
-        let t = 0.5;
-        lines.forEach((ln, k) => {
-          gsap.from(ln, { y: 20, opacity: 0, duration: 0.8, ease: 'power3.out', delay: t });
-          t += k % 2 === 0 ? 0.375 : 0.25;
-        });
-        const mail = sec.querySelector('.contact-mail');
-        show(mail);
-        gsap.from(mail.querySelectorAll('.car'), { yPercent: 80, opacity: 0, stagger: 0.022, duration: 0.9, ease: 'elastic.out(1, 0.6)', delay: t });
-        gsap.to(sec.querySelector('.contact-liens'), { opacity: 1, duration: 0.6, delay: t + 0.6 });
-      };
-      triggers.push(ScrollTrigger.create({ trigger: titre, start: 'top 85%', once: true, onEnter: presIn }));
+      gsap.to(sec.querySelector('.accueil-lieu'), { opacity: 1, duration: 0.6, delay: 0.8 });
+      // Puis le bloc Présentation (même écran) : titre, lignes du texte, et les liens un par un
+      show(titre);
+      gsap.from(split(titre, 'chars').chars, { yPercent: 110, opacity: 0, stagger: 0.018, duration: 0.7, ease: 'power3.out', delay: 0.9 });
+      const cit = sec.querySelector('.pres-citation');
+      show(cit);
+      gsap.from(split(cit, 'lines').lines, { y: 14, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out', delay: 1.1 });
+      const liens = sec.querySelector('.pres-liens');
+      show(liens);
+      gsap.from(liens.children, { x: 12, opacity: 0, stagger: 0.12, duration: 0.6, ease: 'power3.out', delay: 1.4 });
     } else if (i === 1) {
       titleIn(0, 'power4.out');
       const rows = [...sec.querySelectorAll('.piste')];
@@ -378,17 +366,10 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
     gsap.delayedCall(5, () => { if (current === i) items.forEach((el) => { if (getComputedStyle(el).opacity === '0') gsap.to(el, { opacity: 1, duration: 0.4 }); }); });
   }
 
-  // Survol d'une piste : un anneau part dans la nappe ; survol de l'e-mail : lettres slappées
+  // Survol d'une piste : un anneau part dans la nappe
   document.querySelectorAll('.piste a').forEach((a) => {
     on(a, 'mouseenter', (e) => onRing && onRing(Math.min(1, Math.max(0, e.clientX / window.innerWidth))));
   });
-  const mail = document.querySelector('.contact-mail');
-  if (mail && !reduced) {
-    on(mail, 'mouseenter', () => {
-      gsap.fromTo(mail.querySelectorAll('.car'), { y: 0 }, { y: -10, duration: 0.12, stagger: 0.015, ease: 'power2.out', yoyo: true, repeat: 1, overwrite: true,
-        onComplete: () => gsap.to(mail.querySelectorAll('.car'), { y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' }) });
-    });
-  }
 
   // ----- Entrée (DA §4.2) -----
   function playEntry({ onDone }) {

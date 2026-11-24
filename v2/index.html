@@ -40,17 +40,20 @@
   </div>
 
   <main id="contenu" inert>
-    <!-- Présentation (ambient) : le nom et l'accroche en haut, puis le texte de présentation et le contact. -->
+    <!-- Présentation (ambient), tout sur le premier écran : nom, accroche, lieu, puis le texte à gauche et les liens à droite. -->
     <section id="presentation" class="section" data-genre="0" aria-labelledby="t-nom">
       <p class="etiquette" data-etiquette></p>
       <h1 id="t-nom" class="accueil-nom" data-nom></h1>
       <p class="accueil-accroche" data-accroche></p>
+      <p class="accueil-lieu" data-lieu></p>
+      <div class="pres-bloc">
+        <div class="pres-gauche">
+          <h2 id="t-presentation" class="titre pres-titre"></h2>
+          <p class="pres-citation" data-citation></p>
+        </div>
+        <ul class="pres-liens" data-liens aria-label="Liens utiles"></ul>
+      </div>
       <div class="defiler" aria-hidden="true"><span class="etiquette-txt"></span><span class="defiler-trait"><i></i></span></div>
-      <h2 id="t-presentation" class="titre pres-titre"></h2>
-      <p class="pres-citation" data-citation></p>
-      <div class="pres-texte" data-pres></div>
-      <a class="contact-mail" data-mail href="#"></a>
-      <ul class="contact-liens" data-liens></ul>
     </section>
 
     <section id="projets" class="section" data-genre="1" aria-labelledby="t-projets">
