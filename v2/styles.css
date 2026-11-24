@@ -120,7 +120,7 @@ main[inert] { visibility: hidden; }
   font-variation-settings: "opsz" var(--t-opsz), "SOFT" var(--t-soft), "WONK" var(--t-wonk);
   letter-spacing: var(--t-ls);
 }
-.titre, .accueil-nom, .pres-citation, .piste-titre, .marche-titre, .bac-court {
+.titre, .accueil-nom, .piste-titre, .marche-titre, .bac-court {
   font-family: var(--serif); font-style: var(--t-style); font-weight: var(--t-wght);
   font-variation-settings: "opsz" var(--t-opsz), "SOFT" var(--t-soft), "WONK" var(--t-wonk);
   letter-spacing: var(--t-ls);
@@ -160,9 +160,10 @@ p { max-width: 60ch; }
   display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; align-items: start;
 }
 .titre.pres-titre { font-size: 28px; line-height: 1.1; margin: 0 0 12px; }
+/* Même police et même taille que l'accroche (.accueil-accroche) */
 .pres-citation {
-  margin: 0; font-size: 19px; line-height: 1.45; color: var(--papier);
-  font-style: italic; quotes: none; max-width: 62ch;
+  margin: 0; font-size: clamp(22px, 2vw, 30px); line-height: 1.3; color: var(--papier);
+  quotes: none; max-width: 62ch;
 }
 .pres-citation:empty { display: none; }
 .pres-liens {
@@ -312,7 +313,7 @@ p { max-width: 60ch; }
   .accueil-accroche { margin-top: 18px; font-size: clamp(19px, 1.7vw, 24px); }
   .pres-bloc { margin-top: 4vh; }
   .titre.pres-titre { font-size: 24px; margin-bottom: 8px; }
-  .pres-citation { font-size: 17px; }
+  .pres-citation { font-size: clamp(19px, 1.7vw, 24px); }
   .pres-liens { gap: 12px; font-size: 15px; }
 }
 
@@ -329,16 +330,16 @@ p { max-width: 60ch; }
   :root { --marge: 20px; --gout: 16px; }
   body { font-size: 16px; }
   .section { display: block; padding: 18vh var(--marge) 16vh; min-height: 150svh; }
-  .section[data-genre="0"] { min-height: 100svh; padding-top: 10vh; padding-bottom: 18vh; }
+  .section[data-genre="0"] { min-height: 100svh; padding-top: 7vh; padding-bottom: 18vh; }
   .titre { font-size: clamp(44px, 12vw, 64px); }
   .accueil-nom { font-size: clamp(52px, 15vw, 72px); }
   .accueil-accroche { font-size: 20px; }
   .defiler { display: none; }
   /* Sur téléphone, le trait vertical devient horizontal : liens sous le texte */
-  .pres-bloc { display: block; margin-top: 5vh; }
+  .pres-bloc { display: block; margin-top: 3vh; }
   .titre.pres-titre { font-size: 24px; }
-  .pres-citation { font-size: 17px; }
-  .pres-liens { margin-top: 24px; padding: 20px 0 0; border-left: 0; border-top: 1px solid color-mix(in oklab, var(--ligne) 45%, transparent); gap: 14px; }
+  .pres-citation { font-size: 20px; }
+  .pres-liens { margin-top: 18px; padding: 14px 0 0; border-left: 0; border-top: 1px solid color-mix(in oklab, var(--ligne) 45%, transparent); gap: 10px; }
   .piste a { grid-template-columns: 32px 1fr 24px; column-gap: 12px; }
   .piste-num { grid-column: 1; }
   .piste-titre { grid-column: 2; font-size: 28px; }
