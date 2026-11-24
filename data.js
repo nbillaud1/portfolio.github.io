@@ -110,14 +110,18 @@ const TEXTES_V2 = {
     // Noms des sections : titres des pages et libellés de la platine
     sections: {
         presentation: "Présentation",
-        projets: "Projets",
+        projets: "Mes Projets",
         experiences: "Expériences",
         competences: "Compétences"
     },
     // Première section, tout sur le premier écran : nom, accroche, lieu ; puis « Présentation » et la citation à gauche,
     // les liens LinkedIn, GitHub et e-mail à droite (adresses tirées de PROFILE)
     presentation: {
-        accroche: "Développeur full stack junior, étudiant en 3ème année de BUT Informatique.", // sous le nom, en grand
+        // Sous le nom, en grand : une ligne par élément de la liste
+        accroche: [
+            "Développeur full stack junior.",
+            "Étudiant en 3ème année de BUT Informatique."
+        ],
         defiler: "Défiler",                                  // petit repère en bas du premier écran
         citation: "Actuellement à la recherche d'une alternance et d'une école d'ingénieur à partir de Septembre 2027, je peux m'intégrer à votre entreprise afin de développer des services facilitant votre quotidien (sites web, applications, etc.). En dehors du code, je suis passionné par la musique.",
         lieu: "Limoges"                                     // sous l'accroche

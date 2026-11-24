@@ -35,7 +35,8 @@ export function renderContent(content) {
 
   $('#entree-nom').textContent = pres.nom;
   $('[data-nom]').textContent = pres.nom;
-  $('[data-accroche]').textContent = pres.accroche;
+  // Une ligne par élément ; une simple phrase (texte) reste acceptée
+  $('[data-accroche]').innerHTML = [].concat(pres.accroche).map(esc).join('<br>');
   $('[data-citation]').textContent = pres.citation;
   $('[data-lieu]').textContent = pres.lieu;
 
