@@ -1,4 +1,4 @@
-// Adaptateur : la version musicale lit le même contenu que le site classique (../data.js, chargé avant ce module).
+// Adaptateur : la version musicale lit le même contenu que le site classique (data.js, chargé avant ce module).
 // Ne rien écrire ici : les textes se modifient dans data.js.
 /* global PROFILE, EXPERIENCES, PROJECTS, COMPETENCES, TEXTES_V2 */
 
@@ -26,12 +26,13 @@ export const content = {
     line: p.tagline,
     faits: [],
     kinds: [p.kind],
-    liens: [{ type: 'détails', url: `../index.html#/projets/${p.slug}` }],
+    liens: [{ type: 'détails', url: `simple/#/projets/${p.slug}` }],
   })),
 
   experiences: EXPERIENCES.map((e) => ({
     titre: e.org,
-    meta: `${e.role} · ${e.period}`,
+    role: e.role,
+    periode: e.period,
     line: e.text,
   })),
 

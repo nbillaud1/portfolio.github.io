@@ -162,7 +162,7 @@
             `<span aria-hidden="true" style="--i:${i}">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
         $('intro').textContent = PROFILE.intro;
         $('covers').innerHTML = PROJECTS.map(p =>
-            `<a class="cover" href="index.html#/projets/${p.slug}"><span>${p.stack.join(', ')}</span><strong>${p.title}</strong></a>`).join('');
+            `<a class="cover" href="simple/#/projets/${p.slug}"><span>${p.stack.join(', ')}</span><strong>${p.title}</strong></a>`).join('');
         $('music').textContent = PASSIONS.music;
         $('sport').textContent = PASSIONS.sport;
 

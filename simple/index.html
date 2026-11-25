@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nathan Billaud, développeur</title>
+    <meta name="description" content="Portfolio de Nathan Billaud, étudiant en 3ᵉ année de BUT Informatique : projets, compétences et passions.">
+    <script>
+        // Appliqué avant le rendu pour éviter un flash du mauvais thème
+        try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Équivalents libres des polices de bepatrickdavid.com : Antonio ≈ Tusker Grotesk, General Sans ≈ Neue Montreal, Boska ≈ Migra -->
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,400i,500i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Les textes de cette page sont remplis depuis data.js (TEXTES et PROFILE) par script.js. -->
+    <a class="skip-link" href="#/" data-scroll="app"></a>
+
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a class="brand" href="#/" aria-label="Accueil">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></svg>
+                <span id="brandName"></span>
+            </a>
+            <nav aria-label="Navigation principale">
+                <ul class="nav">
+                    <li><a href="#/projets" data-nav="projets"></a></li>
+                    <li><a href="#/competences" data-nav="competences"></a></li>
+                    <li class="nav-optional"><a href="#/passions" data-nav="passions"></a></li>
+                    <li><button class="theme-toggle" type="button" id="themeToggle"></button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app" tabindex="-1">
+        <noscript><p class="wrap">Ce portfolio a besoin de JavaScript pour s'afficher.</p></noscript>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <span><span id="footerName"></span>, <span id="year"></span></span>
+            <a id="footerGithub" href="#" target="_blank" rel="noopener"></a>
+            <a id="footerTop" href="#/" data-scroll="top"></a>
+        </div>
+    </footer>
+
+    <script src="../data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

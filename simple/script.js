@@ -77,7 +77,7 @@ function renderHome() {
             <span class="xp-period">${e.period}</span>
             <div>
                 <h3>${e.role}, ${e.org}</h3>
-                <p>${e.text}</p>
+                ${Array.isArray(e.text) ? `<ul class="xp-liste">${e.text.map(t => `<li>${t}</li>`).join('')}</ul>` : `<p>${e.text}</p>`}
             </div>
         </li>`).join('');
 
@@ -528,7 +528,7 @@ document.addEventListener('click', e => {
     scrollToId(link.dataset.scroll, link.dataset.scroll === 'app');
 });
 
-// Textes fixes de index.html, remplis depuis data.js
+// Textes fixes de simple/index.html, remplis depuis data.js
 $('.skip-link').textContent = T.allerAuContenu;
 $('#brandName').textContent = PROFILE.name;
 $$('[data-nav]').forEach(a => { a.textContent = T.menu[a.dataset.nav]; });

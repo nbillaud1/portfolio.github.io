@@ -1,5 +1,5 @@
 // Contenu du portfolio : c'est le seul fichier à modifier pour mettre à jour les textes,
-// du site classique (index.html) comme de la version musicale (v2/).
+// du site simple (simple/) comme de la version musicale (racine).
 // Une section de projet absente de `sections` affiche un Lorem Ipsum.
 
 const LOREM = [
@@ -31,7 +31,7 @@ const PASSIONS = {
     sportImage: null // { src: "assets/passions/sport.jpg", alt: "…" }
 };
 
-// Textes fixes du site classique (index.html) : titres, boutons, menus. Chaque texte est affiché tel quel.
+// Textes fixes du site simple (simple/index.html) : titres, boutons, menus. Chaque texte est affiché tel quel.
 const TEXTES = {
     ongletAccueil: "Nathan Billaud, développeur",            // titre de l'onglet du navigateur
     ongletCompetences: "Compétences, Nathan Billaud",
@@ -99,13 +99,16 @@ const TEXTES = {
     }
 };
 
-// Textes de la version musicale (v2/). Chaque texte est affiché tel quel, rien n'est recomposé.
+// Textes de la version musicale (index.html à la racine). Chaque texte est affiché tel quel, rien n'est recomposé.
 const TEXTES_V2 = {
     onglet: "Nathan Billaud, version musicale",
     entree: {
+        etiquette: "Portfolio en musique : un style par section",
         bouton: "Entrer",
         note: "Le son démarre au clic. Casque conseillé.",
-        sansSon: "Entrer sans le son"
+        sansSon: "Entrer sans le son",
+        simpleMot: "Simple",                          // écrit sur le disque jaune
+        simple: "Consultez une version simplifiée"    // lien vers simple/, plus légère
     },
     // Noms des sections : titres des pages et libellés de la platine
     sections: {
@@ -128,18 +131,31 @@ const TEXTES_V2 = {
         // L'e-mail, GitHub et LinkedIn viennent de PROFILE.
     },
     competences: {
-        note: "Référentiel du BUT Informatique, parcours A.",
+        note: "Référentiel du BUT Informatique, parcours RADCV.",
         niveau: "Niveau",                                    // affiché « Niveau : Confirmé. »
         technos: "Technos les plus présentes (projets et travaux d'école qui les citent)"
     }
 };
 
-// Affichage : site classique « role, org » ; version musicale « role · period » au-dessus de org.
+// Affichage : site classique « role, org » ; version musicale : frise à gauche (point, period, puis role), org à droite.
+// text : une phrase, ou une liste ["…", "…"] affichée en liste à puces.
 const EXPERIENCES = [
     {
-        period: "Avril à Juin 2026",
+    period: "Depuis février 2026",
+    role: "Développeur indépendant",
+    org: "Auto-entrepreneur",
+    text: [
+        "Refonte du site d'une association.",
+        "Landing pages pour de petites entreprises.",
+        "Outil de prospection pour cibler les besoins des clients.",
+        "Jeux vidéo développés en collaboration avec le studio Kashmo.",
+        "Espace de travail collaboratif et de stockage partagé pour une entreprise."
+    ]
+    },
+    {
+        period: "Avril - Juin 2026",
         role: "Stage Développeur",
-        org: "Technicentre Industriel CHarentes-Périgord - SNCF",
+        org: "Technicentre Industriel Charentes-Périgord - SNCF",
         text: LOREM[0]
     }
 ];

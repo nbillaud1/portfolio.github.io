@@ -59,31 +59,83 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Écran d'entrée ---------- */
 .entree {
-  position: fixed; inset: 0; z-index: 30; background: #000;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-  padding: 24px 16px;
+  position: fixed; inset: 0; z-index: 30;
+  background: #000; /* la nappe n'apparaît qu'au clic sur Entrer */
+  display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+  padding: 8vh var(--marge);
 }
 .entree.parti { background: transparent; pointer-events: none; }
 .entree-nom {
-  margin: 0 0 28px; font-family: var(--serif); font-weight: 250; font-size: 15px;
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
-  letter-spacing: 0.32em; text-transform: uppercase; color: rgb(237 232 223 / 0.56);
+  margin: 0; font-family: var(--serif); font-weight: 250; font-size: clamp(56px, min(11vw, 20vh), 176px); line-height: 0.92;
+  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0; letter-spacing: -0.02em; color: #E6F2FA;
 }
-.entree-jauge { position: relative; width: 160px; height: 1px; background: rgb(230 242 250 / 0.2); transition: width 0.4s var(--onde); }
-.entree-jauge span { position: absolute; inset: 0; background: #E6F2FA; transform-origin: left; transform: scaleX(0); transition: transform 0.35s linear; }
-.entree-btn {
-  margin: 30px 0 18px; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 44px; line-height: 1.1;
-  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
-  color: #E6F2FA; letter-spacing: 0; transition: letter-spacing 0.4s var(--onde), opacity 0.3s;
-  overflow: hidden; padding: 0 0.15em 0.08em;
+.entree-etiquette {
+  margin: 22px 0 0; font-weight: 600; font-size: 12px; line-height: 1.3; font-variation-settings: "wdth" 80;
+  text-transform: uppercase; letter-spacing: 0.18em; color: #7FA8C9;
 }
-.entree-btn[disabled] { opacity: 0.3; cursor: default; }
-.entree-btn:not([disabled]):hover, .entree-btn:not([disabled]):focus-visible { letter-spacing: 0.06em; }
-.entree:has(.entree-btn:not([disabled]):hover) .entree-jauge { width: 200px; }
-.entree-btn-txt { display: inline-block; }
-.entree-note { margin: 0 0 10px; font-size: 13px; color: rgb(237 232 223 / 0.48); }
-.entree-lien { font-size: 13px; color: rgb(237 232 223 / 0.62); text-decoration: underline; text-underline-offset: 3px; }
-.entree-lien[disabled] { opacity: 0.4; cursor: default; }
+.entree-disques { display: flex; justify-content: center; align-items: center; gap: 40px; margin-top: 9vh; }
+.disque { display: flex; align-items: center; color: #E6F2FA; text-decoration: none; border-radius: 80px; }
+.disque[disabled] { cursor: default; }
+.disque[disabled] .disque-vinyle { opacity: 0.5; }
+/* Vinyle : sillons en dégradé radial, reflet fixe ; seul le macaron (le centre) tourne. */
+.disque-vinyle {
+  position: relative; flex: none; width: 136px; height: 136px; border-radius: 50%; display: grid; place-items: center;
+  background: repeating-radial-gradient(circle, #151517 0 1.2px, #08080a 1.2px 3px);
+  box-shadow: 0 0 0 1px rgb(230 242 250 / 0.16), 0 18px 40px rgb(0 0 0 / 0.6);
+  transition: opacity 0.3s, transform 0.5s var(--onde), box-shadow 0.3s;
+}
+.disque-vinyle::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+  background: conic-gradient(from 20deg, transparent 0 6%, rgb(255 255 255 / 0.09) 12%, transparent 20% 55%, rgb(255 255 255 / 0.06) 62%, transparent 70%);
+}
+.disque-macaron {
+  width: 44%; height: 44%; border-radius: 50%; display: grid; place-items: center; background: var(--macaron);
+  color: #0b0b0d; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 17px; line-height: 1;
+  font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; animation: tourne 5s linear infinite;
+}
+.disque--son { --macaron: #E5322D; }
+.disque--muet { --macaron: #3D7BE8; }
+.disque--simple { --macaron: #F2C230; }
+/* Survol (du disque ou de sa phrase) ou focus clavier : le disque s'entoure d'une ligne blanche. */
+.disque:focus-visible { outline: none; }
+.disque:not([disabled]):hover .disque-vinyle, .disque:focus-visible .disque-vinyle {
+  transform: scale(1.04); box-shadow: 0 0 0 5px #000, 0 0 0 6.5px #E6F2FA, 0 18px 40px rgb(0 0 0 / 0.6);
+}
+.disque-ico { width: 26px; height: 26px; }
+.entree-btn-txt { display: inline-block; padding: 0 0.08em 0.06em; }
+@keyframes tourne { to { transform: rotate(1turn); } }
+/* Le contour du disque « Entrer » se remplit pendant le chargement (--p, js/main.js), puis s'efface. */
+.entree-jauge { position: absolute; inset: -5px; border-radius: 50%; pointer-events: none; }
+.entree-jauge span {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(#E6F2FA calc(var(--p, 0) * 360deg), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 1.5px), #000 calc(100% - 1px));
+  transition: opacity 0.4s;
+}
+.disque:not([disabled]) .entree-jauge span { opacity: 0; }
+.disque-phrase {
+  max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transform: translateX(-16px);
+  font-size: 16px; line-height: 1.4; color: rgb(237 232 223 / 0.85);
+  transition: max-width 0.55s var(--onde), margin 0.55s var(--onde), opacity 0.3s, transform 0.55s var(--onde);
+}
+.disque:hover .disque-phrase, .disque:focus-visible .disque-phrase { max-width: 22em; margin-left: 22px; opacity: 1; transform: none; }
+/* Sans survol (tactile) ou sur petit écran : disques en colonne, phrases toujours visibles. */
+@media (hover: none), (max-width: 767px) {
+  .entree-disques { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .disque-vinyle { width: 92px; height: 92px; }
+  .disque-macaron { font-size: 14px; }
+  .disque-ico { width: 20px; height: 20px; }
+  .disque-phrase { max-width: none; margin-left: 18px; opacity: 1; transform: none; white-space: normal; font-size: 15px; text-align: left; }
+}
+@media (max-width: 767px) {
+  .entree { padding: 8vh 20px; }
+  .entree-nom { font-size: clamp(52px, 15vw, 72px); }
+  .entree-disques { margin-top: 6vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .disque-macaron { animation: none; }
+}
 .entree-point {
   position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px;
   border-radius: 50%; background: #E6F2FA; opacity: 0; pointer-events: none;
@@ -105,7 +157,7 @@ main[inert] { visibility: hidden; }
   text-shadow: 0 0 24px var(--fond), 0 0 4px var(--fond);
 }
 /* Petits textes : halo empilé, plus dense, pour rester lisibles au-dessus des lignes (aucun panneau). */
-.section p, .piste-line, .piste-types, .bac-def, .bac-intitule, .technos li, .pres-liens, .credits, .etiquette {
+.section p, .marche-liste li, .piste-line, .piste-types, .bac-def, .bac-intitule, .technos li, .pres-liens, .credits, .etiquette {
   text-shadow: 0 0 2px var(--fond), 0 0 4px var(--fond), 0 0 8px var(--fond), 0 0 14px var(--fond), 0 0 22px var(--fond), 0 0 34px var(--fond);
 }
 .section > * { grid-column: 1 / -1; }
@@ -203,18 +255,29 @@ p { max-width: 60ch; }
 .piste-onde path { animation: onde-defile 0.968s linear infinite; }
 @keyframes onde-defile { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
 
-/* 04 · Expériences : escalier */
+/* 04 · Expériences : frise, un point par expérience (de la plus récente à la plus ancienne) */
 .escalier { margin-top: 72px; display: grid; gap: 88px; }
+.marche { position: relative; }
+/* Le trait relie le point de chaque expérience à celui de la suivante (centre du point : 5 px, 20 px). */
+.marche:not(:last-child)::before {
+  content: ''; position: absolute; left: 4.5px; top: 20px; width: 1px; height: calc(100% + 88px);
+  background: color-mix(in srgb, var(--ligne) 50%, transparent);
+}
+.marche-date { position: relative; display: inline-block; font-size: 15px; line-height: 20px; color: var(--ligne); }
+.marche-date::before {
+  content: ''; position: absolute; left: -28px; top: 5px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--ligne); box-shadow: 0 0 0 5px var(--fond);
+}
 .marche { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gout); align-items: start; }
 /* Méta en colonnes 1–2 (retour à la ligne permis) : le titre du premier pas commence en colonne 3 sans la recouvrir. */
-.marche-meta { grid-column: 1 / 3; grid-row: 1; margin: 0; padding-top: 0.6em; font-weight: 600; font-variation-settings: "wdth" 75; font-size: 14px; line-height: 1.35; text-transform: uppercase; letter-spacing: 0.14em; color: var(--papier); }
-.marche-titre { grid-row: 1; margin: 0; font-size: clamp(44px, 6.2vw, 96px); line-height: 0.95; color: var(--accent); position: relative; }
-.marche[data-pas="0"] .marche-titre { grid-column: 3 / 11; }
-.marche[data-pas="1"] .marche-titre { grid-column: 4 / 12; }
-.marche[data-pas="2"] .marche-titre { grid-column: 5 / 13; }
+.marche-meta { grid-column: 1 / 3; grid-row: 1; margin: 0; padding: 10px 0 0 28px; font-weight: 600; font-variation-settings: "wdth" 75; font-size: 13px; line-height: 1.35; text-transform: uppercase; letter-spacing: 0.14em; color: var(--papier); }
+.marche-titre { grid-column: 3 / 13; grid-row: 1; margin: 0; font-size: 40px; line-height: 1; word-spacing: 0.18em; color: var(--accent); position: relative; }
 .marche-titre::after { content: ''; position: absolute; left: 0; right: 0; bottom: -10px; height: 6px; background: var(--ligne); opacity: 0; }
 .marche-titre.flash::after { opacity: 1; }
-.marche-texte { grid-column: 7 / 13; grid-row: 2; margin: 22px 0 0; }
+.marche-texte { grid-column: 4 / 11; grid-row: 2; margin: 22px 0 0; }
+.marche-liste { padding-left: 1.2em; list-style: disc; }
+.marche-liste li + li { margin-top: 6px; }
+.marche-liste li::marker { color: var(--ligne); }
 
 /* 05 · Compétences : bacs */
 .comp-grille { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gout); }
@@ -358,9 +421,12 @@ p { max-width: 60ch; }
   .piste-types { grid-column: 2; grid-row: auto; margin-top: 8px; }
   .piste-fleche { grid-column: 3; }
   .marche { display: block; }
-  .marche-titre { font-size: 40px; margin-top: 6px; }
+  .marche-titre { font-size: 28px; margin-top: 6px; }
   .marche-texte { margin-top: 14px; }
   .escalier { gap: 56px; }
+  .marche { padding-left: 28px; }
+  .marche-meta { padding-left: 0; }
+  .marche:not(:last-child)::before { height: calc(100% + 56px); }
   .comp-grille { display: block; }
   .comp-tete { position: static; }
   .comp-liste { padding-top: 40px; }

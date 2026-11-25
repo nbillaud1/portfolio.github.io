@@ -64,8 +64,8 @@ let progress = 0;
 const steps = 3;
 const advance = () => {
   progress++;
-  jauge.style.transform = `scaleX(${Math.min(1, progress / steps)})`;
-  if (progress >= steps) { btnEntrer.disabled = false; btnMuet.disabled = false; btnEntrer.focus(); }
+  jauge.style.setProperty('--p', Math.min(1, progress / steps));
+  if (progress >= steps) { btnEntrer.disabled = false; btnMuet.disabled = false; }
 };
 const fontsReady = Promise.all([
   document.fonts.load('300 44px "Fraunces Variable"'),

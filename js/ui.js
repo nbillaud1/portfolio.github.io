@@ -25,9 +25,12 @@ export function renderContent(content) {
   // Textes fixes de la page (TEXTES_V2 dans data.js)
   const T = content.textes;
   document.title = T.onglet;
+  $('#entree-etiquette').textContent = T.entree.etiquette;
   $('.entree-btn-txt').textContent = T.entree.bouton;
   $('#entree-note').textContent = T.entree.note;
-  $('#btn-entrer-muet').textContent = T.entree.sansSon;
+  $('#entree-sans-son').textContent = T.entree.sansSon;
+  $('#entree-simple-mot').textContent = T.entree.simpleMot;
+  $('#entree-simple-phrase').textContent = T.entree.simple;
   $('.defiler .etiquette-txt').textContent = T.presentation.defiler;
   Object.entries(T.sections).forEach(([id, titre]) => { const h = $(`#t-${id}`); if (h) h.textContent = titre; });
   $('.comp-note').textContent = T.competences.note;
@@ -54,11 +57,11 @@ export function renderContent(content) {
     </li>`;
   }).join('');
 
-  $('[data-experiences]').innerHTML = content.experiences.map((e, i) => `
-    <article class="marche" data-pas="${i % 3}" data-app>
-      <p class="marche-meta">${esc(e.meta)}</p>
+  $('[data-experiences]').innerHTML = content.experiences.map((e) => `
+    <article class="marche" data-app>
+      <p class="marche-meta"><span class="marche-date">${esc(e.periode)}</span><br>${esc(e.role)}</p>
       <h3 class="marche-titre">${esc(e.titre)}</h3>
-      <p class="marche-texte">${esc(e.line)}</p>
+      ${Array.isArray(e.line) ? `<ul class="marche-texte marche-liste">${e.line.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : `<p class="marche-texte">${esc(e.line)}</p>`}
     </article>`).join('');
 
   $('[data-competences]').innerHTML = content.competences.liste.map((c) => `
@@ -348,13 +351,8 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
       });
     } else if (i === 2) {
       titleIn(0, 'elastic.out(1, 0.6)');
-      // Même geste que l'ancien Contact (soul/funk) : lettres élastiques, puis le reste en fondu
-      [...sec.querySelectorAll('.marche')].forEach((m, k) => {
-        const delay = 0.3 + k * 0.9;
-        gsap.set(m, { opacity: 1 });
-        gsap.from(split(m.querySelector('.marche-titre'), 'chars').chars, { yPercent: 80, opacity: 0, stagger: 0.022, duration: 0.9, ease: 'elastic.out(1, 0.6)', delay });
-        gsap.fromTo([m.querySelector('.marche-meta'), m.querySelector('.marche-texte')], { opacity: 0 }, { opacity: 1, duration: 0.6, delay: delay + 0.9 });
-      });
+      // Seul le titre de la section s'anime ; les expériences sont là d'emblée.
+      gsap.set(sec.querySelectorAll('.marche'), { opacity: 1 });
     } else if (i === 3) {
       titleIn(0, 'back.out(1.6)');
       gsap.to(sec.querySelector('.comp-note'), { opacity: 1, duration: 0.6, delay: 0.4 });
@@ -377,10 +375,13 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
     entered = true;
     const entree = document.getElementById('entree');
     const btn = document.getElementById('btn-entrer');
-    const fades = entree.querySelectorAll('.entree-nom, .entree-note, .entree-lien');
+    const fades = entree.querySelectorAll('.entree-etiquette, .entree-nom, .disque-phrase, .disque:not(#btn-entrer)');
     const jauge = entree.querySelector('.entree-jauge');
     const point = document.createElement('span');
     point.className = 'entree-point';
+    // Le point de sortie naît au centre du disque « Entrer »
+    const r = btn.querySelector('.disque-vinyle').getBoundingClientRect();
+    point.style.left = `${r.left + r.width / 2}px`; point.style.top = `${r.top + r.height / 2}px`;
     entree.appendChild(point);
     btn.blur();
     const finish = () => {
@@ -402,8 +403,9 @@ export function createUI({ mobile, reduced, audio, onGenre, onRing }) {
     const s = SplitText.create(btn.querySelector('.entree-btn-txt'), { type: 'chars', mask: 'chars' });
     splits.push(s);
     gsap.to(s.chars, { yPercent: -100, stagger: 0.02, duration: 0.3, ease: 'power3.in' });
+    gsap.to(btn.querySelector('.disque-vinyle'), { scale: 0.1, opacity: 0, duration: 0.38, ease: 'expo.in' });
     gsap.to(fades, { opacity: 0, duration: 0.25 });
-    gsap.to(jauge, { scaleX: 0, duration: 0.26, ease: 'expo.in', delay: 0.12 });
+    gsap.to(jauge, { scale: 0.6, opacity: 0, duration: 0.26, ease: 'expo.in', delay: 0.12 });
     gsap.fromTo(point, { opacity: 0 }, { opacity: 1, duration: 0.01, delay: 0.38 });
     gsap.to(point, { opacity: 0, duration: 0.3, delay: 0.39 });
     gsap.delayedCall(0.38, () => entree.classList.add('parti'));
